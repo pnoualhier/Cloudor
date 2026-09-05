@@ -27,7 +27,7 @@ export const Header: React.FC<HeaderProps> = ({
     { id: 'my-study-dashboard', label: t.studyDashboard },
     { id: 'practice-exam-lab', label: t.practiceExamLab },
     { id: 'cheatsheets-and-playground', label: t.cheatsheetsPlayground },
-    { id: 'clf-c02-hub', label: t.clfHub, badge: '50 Cards' },
+    { id: 'clf-c02-hub', label: t.clfHub, badge: '300 Cards' },
   ];
 
   return (

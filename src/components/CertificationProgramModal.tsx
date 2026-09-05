@@ -233,7 +233,7 @@ export const CertificationProgramModal: React.FC<CertificationProgramModalProps>
                 className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-[#ff9900]/20 hover:bg-[#ff9900] text-[#ffb95f] hover:text-[#0f131d] text-xs font-mono-code font-bold flex items-center justify-center gap-1.5 transition-all border border-[#ff9900]/40"
               >
                 <span className="material-symbols-outlined text-[16px]">style</span>
-                <span>{language === 'fr' ? 'Domaine 1 & 50 Flashcards' : 'Domain 1 & 50 Flashcards'}</span>
+                <span>{language === 'fr' ? 'Domaine 1 & 100 Flashcards' : 'Domain 1 & 100 Flashcards'}</span>
               </button>
             )}
 

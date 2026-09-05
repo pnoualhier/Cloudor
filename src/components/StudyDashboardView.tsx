@@ -169,18 +169,18 @@ export const StudyDashboardView: React.FC<StudyDashboardViewProps> = ({
               AWS CLF-C02 FOCUS
             </span>
             <span className="text-xs font-mono-code text-[#4cd7f6]">
-              {language === 'fr' ? 'Programme Officiel Domaine 1 & Jeu de 50 Flashcards' : 'Official Domain 1 Guide & 50 Exam Flashcards Deck'}
+              {language === 'fr' ? 'Programme Officiel Domaine 1 & Jeu de 100 Flashcards' : 'Official Domain 1 Guide & 100 Exam Flashcards Deck'}
             </span>
           </div>
           <h2 className="text-lg sm:text-xl font-display font-bold text-white">
             {language === 'fr'
-              ? 'AWS Certified Cloud Practitioner (CLF-C02) : Domaine 1 & 50 Flashcards'
-              : 'AWS Certified Cloud Practitioner (CLF-C02): Domain 1 & 50 Flashcards'}
+              ? 'AWS Certified Cloud Practitioner (CLF-C02) : Domaine 1 & 100 Flashcards'
+              : 'AWS Certified Cloud Practitioner (CLF-C02): Domain 1 & 100 Flashcards'}
           </h2>
           <p className="text-xs text-[#c7c4d7] leading-relaxed">
             {language === 'fr'
-              ? 'Consultez le cours interactif du Domaine 1 (Cloud Concepts - 24% du blueprint), les 6 piliers Well-Architected, les 7 R de migration et entraînez-vous avec 50 flashcards annotées.'
-              : 'Access the interactive Domain 1 guide (Cloud Concepts - 24% blueprint weight), the 6 Well-Architected pillars, 7 Rs migration matrix, and drill through 50 exam flashcards.'}
+              ? 'Consultez le cours interactif du Domaine 1 (Cloud Concepts - 24% du blueprint), les 6 piliers Well-Architected, les 7 R de migration et entraînez-vous avec 100 flashcards annotées dédiées au Domaine 1.'
+              : 'Access the interactive Domain 1 guide (Cloud Concepts - 24% blueprint weight), the 6 Well-Architected pillars, 7 Rs migration matrix, and drill through 100 exam flashcards dedicated to Domain 1.'}
           </p>
         </div>
 
@@ -200,7 +200,7 @@ export const StudyDashboardView: React.FC<StudyDashboardViewProps> = ({
             className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#ff9900] to-[#ffb95f] hover:opacity-95 text-[#0f131d] font-bold text-xs font-mono-code flex items-center gap-2 shadow-lg transition-all"
           >
             <span className="material-symbols-outlined text-[16px]">style</span>
-            <span>{language === 'fr' ? 'Lancer les 50 Flashcards & Cours' : 'Launch 50 Flashcards & Hub'}</span>
+            <span>{language === 'fr' ? 'Lancer les 100 Flashcards & Cours' : 'Launch 100 Flashcards & Hub'}</span>
           </button>
         </div>
       </div>

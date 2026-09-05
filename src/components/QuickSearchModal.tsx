@@ -44,11 +44,11 @@ export const QuickSearchModal: React.FC<QuickSearchModalProps> = ({ isOpen, onCl
     },
     {
       title: language === 'fr'
-        ? 'Jeu des 50 Flashcards CLF-C02 (Questions, Règles d’Or & Pièges d’Examen)'
-        : '50 CLF-C02 Flashcards Deck (Questions, Rules of Thumb & Exam Traps)',
+        ? 'Jeu des 100 Flashcards CLF-C02 Domaine 1 (Concepts Cloud, Well-Architected & 7 Rs)'
+        : '100 CLF-C02 Domain 1 Flashcards Deck (Cloud Concepts, Well-Architected & 7 Rs)',
       category: language === 'fr' ? 'Cartes Mémos' : 'Flashcard Deck',
       tab: 'clf-c02-hub' as ActiveTab,
-      badge: '50 Cards',
+      badge: '100 Cards',
       badgeColor: 'text-[#4cd7f6] bg-[#4cd7f6]/10',
     },
     {
