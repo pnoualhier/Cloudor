@@ -242,11 +242,27 @@ export const CareerPathwaysView: React.FC<CareerPathwaysViewProps> = ({
                                 e.stopPropagation();
                                 onNavigate('clf-c02-hub');
                               }}
-                              title={language === 'fr' ? 'Ouvrir le guide Domaine 1 et les 50 Flashcards' : 'Open Domain 1 Guide & 50 Flashcards'}
+                              title={language === 'fr' ? 'Ouvrir la suite complète des 450 Flashcards CLF-C02' : 'Open Full 450 Flashcards CLF-C02 Suite'}
                               className="px-2 py-1 rounded-lg bg-[#ff9900]/20 hover:bg-[#ff9900] text-[#ffb95f] hover:text-[#0f131d] text-[11px] font-mono-code font-bold flex items-center gap-1 border border-[#ff9900]/40 transition-all shadow-sm"
                             >
                               <span className="material-symbols-outlined text-[13px]">style</span>
-                              <span>{language === 'fr' ? '50 Cartes' : '50 Cards'}</span>
+                              <span>{language === 'fr' ? '450 Cartes' : '450 Cards'}</span>
+                            </button>
+                          )}
+
+                          {/* Dedicated AZ-900 Deck shortcut */}
+                          {cert.code === 'AZ-900' && (
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                onNavigate('az-900-hub');
+                              }}
+                              title={language === 'fr' ? 'Ouvrir la suite complète des 300 Flashcards AZ-900 (Domaines 1, 2 & 3)' : 'Open Full 300 Flashcards AZ-900 Suite (Domains 1, 2 & 3)'}
+                              className="px-2 py-1 rounded-lg bg-[#0078d4]/20 hover:bg-[#0078d4] text-[#70baff] hover:text-white text-[11px] font-mono-code font-bold flex items-center gap-1 border border-[#0078d4]/40 transition-all shadow-sm"
+                            >
+                              <span className="material-symbols-outlined text-[13px]">style</span>
+                              <span>{language === 'fr' ? '300 Cartes' : '300 Cards'}</span>
                             </button>
                           )}
 

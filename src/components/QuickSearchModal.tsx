@@ -46,10 +46,46 @@ export const QuickSearchModal: React.FC<QuickSearchModalProps> = ({ isOpen, onCl
       title: language === 'fr'
         ? 'Jeu des 100 Flashcards CLF-C02 Domaine 1 (Concepts Cloud, Well-Architected & 7 Rs)'
         : '100 CLF-C02 Domain 1 Flashcards Deck (Cloud Concepts, Well-Architected & 7 Rs)',
-      category: language === 'fr' ? 'Cartes Mémos' : 'Flashcard Deck',
+      category: language === 'fr' ? 'Cartes Mémos AWS' : 'AWS Flashcards',
       tab: 'clf-c02-hub' as ActiveTab,
-      badge: '100 Cards',
+      badge: '450 Cards',
       badgeColor: 'text-[#4cd7f6] bg-[#4cd7f6]/10',
+    },
+    {
+      title: language === 'fr'
+        ? 'Microsoft Azure Fundamentals (AZ-900) : 100 Flashcards Domaine 1 (Concepts du Cloud)'
+        : 'Microsoft Azure Fundamentals (AZ-900): 100 Domain 1 Flashcards (Cloud Concepts)',
+      category: language === 'fr' ? 'Cartes Mémos Azure' : 'Azure Flashcards',
+      tab: 'az-900-hub' as ActiveTab,
+      badge: '100 Cards D1',
+      badgeColor: 'text-[#0078d4] bg-[#0078d4]/10',
+    },
+    {
+      title: language === 'fr'
+        ? 'Microsoft Azure Fundamentals (AZ-900) : 100 Flashcards Domaine 2 (Architecture & Services Azure)'
+        : 'Microsoft Azure Fundamentals (AZ-900): 100 Domain 2 Flashcards (Azure Architecture & Services)',
+      category: language === 'fr' ? 'Cartes Mémos Azure' : 'Azure Flashcards',
+      tab: 'az-900-hub' as ActiveTab,
+      badge: '100 Cards D2',
+      badgeColor: 'text-[#0078d4] bg-[#0078d4]/10',
+    },
+    {
+      title: language === 'fr'
+        ? 'Microsoft Azure Fundamentals (AZ-900) : 100 Flashcards Domaine 3 (Gestion & Gouvernance Azure)'
+        : 'Microsoft Azure Fundamentals (AZ-900): 100 Domain 3 Flashcards (Azure Management & Governance)',
+      category: language === 'fr' ? 'Cartes Mémos Azure' : 'Azure Flashcards',
+      tab: 'az-900-hub' as ActiveTab,
+      badge: '100 Cards D3',
+      badgeColor: 'text-[#0078d4] bg-[#0078d4]/10',
+    },
+    {
+      title: language === 'fr'
+        ? 'CompTIA Cloud+ (CV0-004) : 100 Flashcards & Guide Domaine 1 (Architecture Cloud)'
+        : 'CompTIA Cloud+ (CV0-004): 100 Flashcards & Domain 1 Guide (Cloud Architecture)',
+      category: language === 'fr' ? 'Cartes Mémos CompTIA' : 'CompTIA Flashcards',
+      tab: 'cv0-004-hub' as ActiveTab,
+      badge: '100 Cards D1',
+      badgeColor: 'text-red-400 bg-red-500/10',
     },
     {
       title: 'AWS Certified Solutions Architect – Associate (SAA-C03)',

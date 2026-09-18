@@ -10,6 +10,8 @@ export interface Translations {
   practiceExamLab: string;
   cheatsheetsPlayground: string;
   clfHub: string;
+  azHub: string;
+  cv0Hub: string;
   searchPlaceholder: string;
   streakText: string;
   notificationsTitle: string;
@@ -96,7 +98,9 @@ const translations: Record<Language, Translations> = {
     studyDashboard: 'My Study Dashboard',
     practiceExamLab: 'Practice Exam Lab',
     cheatsheetsPlayground: 'Cheatsheets & Playground',
-    clfHub: 'AWS CLF-C02 & 100 Flashcards',
+    clfHub: 'AWS CLF-C02 (450 Cards)',
+    azHub: 'Azure AZ-900 (300 Cards)',
+    cv0Hub: 'CompTIA CV0-004 (200 Cards)',
     searchPlaceholder: 'Search specs, exams, labs...',
     streakText: '14d streak',
     notificationsTitle: 'Activity Radar',
@@ -176,7 +180,9 @@ const translations: Record<Language, Translations> = {
     studyDashboard: "Mon Tableau d'Étude",
     practiceExamLab: "Lab d'Examen Blanc",
     cheatsheetsPlayground: 'Fiches Mémos & Bac à Sable',
-    clfHub: 'AWS CLF-C02 & 100 Flashcards',
+    clfHub: 'AWS CLF-C02 (450 Cartes)',
+    azHub: 'Azure AZ-900 (300 Cartes)',
+    cv0Hub: 'CompTIA CV0-004 (200 Cartes)',
     searchPlaceholder: 'Rechercher specs, examens, labs...',
     streakText: '14j consécutifs',
     notificationsTitle: "Radar d'Activité",

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ActiveTab, Provider } from '../types';
 import { useLanguage } from '../context/LanguageContext';
+import { useSystemUpdate } from '../context/SystemUpdateContext';
 
 interface HeaderProps {
   activeTab: ActiveTab;
@@ -21,13 +22,16 @@ export const Header: React.FC<HeaderProps> = ({
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { language, setLanguage, t } = useLanguage();
+  const { setIsSettingsOpen, pendingUpdate, currentVersion, status: updateStatus } = useSystemUpdate();
 
-  const navItems: Array<{ id: ActiveTab; label: string; badge?: string }> = [
+  const navItems: Array<{ id: ActiveTab; label: string; badge?: string; badgeColor?: string }> = [
     { id: 'career-pathways', label: t.careerPathways },
     { id: 'my-study-dashboard', label: t.studyDashboard },
     { id: 'practice-exam-lab', label: t.practiceExamLab },
     { id: 'cheatsheets-and-playground', label: t.cheatsheetsPlayground },
-    { id: 'clf-c02-hub', label: t.clfHub, badge: '300 Cards' },
+    { id: 'clf-c02-hub', label: t.clfHub, badge: '450 Cards' },
+    { id: 'az-900-hub', label: t.azHub, badge: '300 Cards', badgeColor: 'bg-[#0078d4]/20 text-[#70baff] border-[#0078d4]/40' },
+    { id: 'cv0-004-hub', label: t.cv0Hub, badge: '200 Cards', badgeColor: 'bg-red-600/20 text-red-400 border-red-500/40' },
   ];
 
   return (
@@ -71,7 +75,7 @@ export const Header: React.FC<HeaderProps> = ({
                 >
                   <span>{item.label}</span>
                   {item.badge && (
-                    <span className="px-1.5 py-0.2 rounded text-[10px] font-mono-code font-bold bg-[#ff9900]/20 text-[#ffb95f] border border-[#ff9900]/40">
+                    <span className={`px-1.5 py-0.2 rounded text-[10px] font-mono-code font-bold border ${item.badgeColor || 'bg-[#ff9900]/20 text-[#ffb95f] border-[#ff9900]/40'}`}>
                       {item.badge}
                     </span>
                   )}
@@ -85,12 +89,13 @@ export const Header: React.FC<HeaderProps> = ({
         <div className="flex items-center gap-2.5 sm:gap-3">
           {/* Quick Provider Badges */}
           <div className="hidden 2xl:flex items-center gap-1 bg-[#0a0e18] p-1 rounded-lg border border-[#262a35]">
-            {(['aws', 'azure', 'gcp', 'k8s'] as const).map((p) => {
+            {(['aws', 'azure', 'gcp', 'k8s', 'comptia'] as const).map((p) => {
               const colors: Record<string, string> = {
                 aws: 'text-[#ffb95f] hover:bg-[#ffb95f]/15',
                 azure: 'text-[#4cd7f6] hover:bg-[#4cd7f6]/15',
                 gcp: 'text-[#c0c1ff] hover:bg-[#c0c1ff]/15',
                 k8s: 'text-[#dfe2f1] hover:bg-white/10',
+                comptia: 'text-red-400 hover:bg-red-500/15',
               };
               const isSelected = selectedProviderFilter === p;
               return (
@@ -198,6 +203,26 @@ export const Header: React.FC<HeaderProps> = ({
             )}
           </div>
 
+          {/* System Settings & Updates Button */}
+          <div className="relative">
+            <button
+              onClick={() => setIsSettingsOpen(true)}
+              className="relative p-2 rounded-lg bg-[#171b26] text-[#c7c4d7] hover:bg-[#1c1f2a] hover:text-white transition-colors cursor-pointer group"
+              title={language === 'fr' ? 'Paramètres Système & Mises à Jour' : 'System Settings & Updates'}
+              aria-label="System Settings"
+            >
+              <span className="material-symbols-outlined text-[20px] group-hover:rotate-45 transition-transform duration-300">
+                settings
+              </span>
+              {pendingUpdate && (
+                <>
+                  <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-amber-400 ring-2 ring-[#0f131d] animate-ping"></span>
+                  <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-amber-400 ring-2 ring-[#0f131d]"></span>
+                </>
+              )}
+            </button>
+          </div>
+
           {/* User Profile */}
           <div className="relative">
             <div
@@ -225,7 +250,7 @@ export const Header: React.FC<HeaderProps> = ({
 
             {/* Profile Dropdown */}
             {showProfileMenu && (
-              <div className="absolute right-0 mt-2 w-56 rounded-xl bg-[#1c1f2a] border border-[#313540] shadow-2xl p-3 z-50">
+              <div className="absolute right-0 mt-2 w-64 rounded-xl bg-[#1c1f2a] border border-[#313540] shadow-2xl p-3 z-50">
                 <div className="pb-2 border-b border-[#262a35]">
                   <p className="text-xs font-bold text-white">Alex Chen</p>
                   <p className="text-[11px] text-[#908fa0] font-mono-code">pnoualhier@gmail.com</p>
@@ -250,6 +275,21 @@ export const Header: React.FC<HeaderProps> = ({
                   >
                     <span>{t.examSimActive}</span>
                     <span className="font-mono-code text-[10px] text-[#ffb95f]">{language === 'fr' ? 'En cours' : 'Active'}</span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      setIsSettingsOpen(true);
+                      setShowProfileMenu(false);
+                    }}
+                    className="w-full text-left px-2 py-1.5 text-xs rounded hover:bg-[#262a35] text-[#dfe2f1] flex items-center justify-between border-t border-[#262a35] pt-2 mt-1"
+                  >
+                    <div className="flex items-center gap-1.5">
+                      <span className="material-symbols-outlined text-[16px] text-[#4cd7f6]">settings_system_daydream</span>
+                      <span>{language === 'fr' ? 'Paramètres Système' : 'System Settings'}</span>
+                    </div>
+                    <span className="font-mono-code text-[10px] px-1.5 py-0.2 rounded bg-[#0a0e18] text-[#c0c1ff] border border-[#262a35]">
+                      {currentVersion}
+                    </span>
                   </button>
                 </div>
                 <div className="pt-2 border-t border-[#262a35] flex items-center justify-between text-[11px] text-[#908fa0]">
@@ -317,11 +357,35 @@ export const Header: React.FC<HeaderProps> = ({
                   isActive ? 'bg-[#262a35] text-white' : 'text-[#c7c4d7] hover:bg-[#1c1f2a]'
                 }`}
               >
-                <span>{item.label}</span>
+                <div className="flex items-center gap-2">
+                  <span>{item.label}</span>
+                  {item.badge && (
+                    <span className={`px-1.5 py-0.2 rounded text-[10px] font-mono-code font-bold border ${item.badgeColor || 'bg-[#ff9900]/20 text-[#ffb95f] border-[#ff9900]/40'}`}>
+                      {item.badge}
+                    </span>
+                  )}
+                </div>
                 {isActive && <span className="w-1.5 h-1.5 rounded-full bg-[#4cd7f6]"></span>}
               </button>
             );
           })}
+
+          {/* System Settings in Mobile Drawer */}
+          <button
+            onClick={() => {
+              setIsSettingsOpen(true);
+              setMobileMenuOpen(false);
+            }}
+            className="w-full text-left px-3 py-2.5 rounded-lg bg-[#171b26] text-xs font-mono-code text-[#dfe2f1] hover:bg-[#1c1f2a] flex items-center justify-between border border-[#262a35] mt-2"
+          >
+            <div className="flex items-center gap-2">
+              <span className="material-symbols-outlined text-[18px] text-[#4cd7f6]">settings</span>
+              <span>{language === 'fr' ? 'Paramètres Système & Mises à Jour' : 'System Settings & Updates'}</span>
+            </div>
+            <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-[#0a0e18] text-[#c0c1ff] border border-[#262a35]">
+              {currentVersion}
+            </span>
+          </button>
         </div>
       )}
     </header>

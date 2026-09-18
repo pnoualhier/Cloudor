@@ -169,18 +169,18 @@ export const StudyDashboardView: React.FC<StudyDashboardViewProps> = ({
               AWS CLF-C02 FOCUS
             </span>
             <span className="text-xs font-mono-code text-[#4cd7f6]">
-              {language === 'fr' ? 'Programme Officiel Domaine 1 & Jeu de 100 Flashcards' : 'Official Domain 1 Guide & 100 Exam Flashcards Deck'}
+              {language === 'fr' ? '450 Flashcards Disponibles (100 D1 + 100 D2 + 100 D3 + 100 D4 + 50 Examen Blanc) & Cours D1' : '450 Available Flashcards (100 D1 + 100 D2 + 100 D3 + 100 D4 + 50 Exam Mock) & D1 Guide'}
             </span>
           </div>
           <h2 className="text-lg sm:text-xl font-display font-bold text-white">
             {language === 'fr'
-              ? 'AWS Certified Cloud Practitioner (CLF-C02) : Domaine 1 & 100 Flashcards'
-              : 'AWS Certified Cloud Practitioner (CLF-C02): Domain 1 & 100 Flashcards'}
+              ? 'AWS Certified Cloud Practitioner (CLF-C02) : Suite Complète 450 Flashcards'
+              : 'AWS Certified Cloud Practitioner (CLF-C02): Complete 450 Flashcards Suite'}
           </h2>
           <p className="text-xs text-[#c7c4d7] leading-relaxed">
             {language === 'fr'
-              ? 'Consultez le cours interactif du Domaine 1 (Cloud Concepts - 24% du blueprint), les 6 piliers Well-Architected, les 7 R de migration et entraînez-vous avec 100 flashcards annotées dédiées au Domaine 1.'
-              : 'Access the interactive Domain 1 guide (Cloud Concepts - 24% blueprint weight), the 6 Well-Architected pillars, 7 Rs migration matrix, and drill through 100 exam flashcards dedicated to Domain 1.'}
+              ? 'Couverture intégrale à 100% du blueprint CLF-C02 : 100 D1 (Concepts Cloud), 100 D2 (Sécurité & Conformité), 100 D3 (Technologies & Services), 100 D4 (Facturation, Tarification & Support) et 50 cartes d’examen blanc avec filtrage par tâche officielle et suivi de progression.'
+              : 'Comprehensive 100% CLF-C02 blueprint coverage: 100 D1 (Cloud Concepts), 100 D2 (Security & Compliance), 100 D3 (Technology & Services), 100 D4 (Billing, Pricing & Support), and 50 exam mock cards with official task filtering and mastery tracking.'}
           </p>
         </div>
 
@@ -200,7 +200,7 @@ export const StudyDashboardView: React.FC<StudyDashboardViewProps> = ({
             className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#ff9900] to-[#ffb95f] hover:opacity-95 text-[#0f131d] font-bold text-xs font-mono-code flex items-center gap-2 shadow-lg transition-all"
           >
             <span className="material-symbols-outlined text-[16px]">style</span>
-            <span>{language === 'fr' ? 'Lancer les 100 Flashcards & Cours' : 'Launch 100 Flashcards & Hub'}</span>
+            <span>{language === 'fr' ? 'Lancer les Flashcards CLF-C02 (450)' : 'Launch CLF-C02 Flashcards (450)'}</span>
           </button>
         </div>
       </div>

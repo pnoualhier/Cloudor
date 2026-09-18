@@ -15,6 +15,7 @@ export interface ClfC02Flashcard {
 export { CLF_C02_DOMAIN_1_100_FLASHCARDS } from './clfC02Domain1FlashcardsData';
 export { CLF_C02_DOMAIN_2_100_FLASHCARDS } from './clfC02Domain2FlashcardsData';
 export { CLF_C02_DOMAIN_3_100_FLASHCARDS } from './clfC02Domain3FlashcardsData';
+export { CLF_C02_DOMAIN_4_100_FLASHCARDS } from './clfC02Domain4FlashcardsData';
 
 export const CLF_C02_50_FLASHCARDS: ClfC02Flashcard[] = [
   // ================= DOMAIN 1: CLOUD CONCEPTS (24%) - Cards 1 to 15 =================

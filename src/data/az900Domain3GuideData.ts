@@ -1,0 +1,313 @@
+export interface Az900Domain3TopicSection {
+  id: string;
+  titleEn: string;
+  titleFr: string;
+  weight: string;
+  descriptionEn: string;
+  descriptionFr: string;
+  keyConcepts: Array<{
+    nameEn: string;
+    nameFr: string;
+    summaryEn: string;
+    summaryFr: string;
+    examTipEn: string;
+    examTipFr: string;
+  }>;
+}
+
+export const AZ900_DOMAIN_3_METADATA = {
+  examCode: 'AZ-900',
+  examName: 'Microsoft Azure Fundamentals',
+  domainNumber: 3,
+  domainNameEn: 'Domain 3: Describe Azure management and governance',
+  domainNameFr: 'Domaine 3 : Décrire la gestion et la gouvernance Azure',
+  weight: '30–35%',
+  passingScore: '700 / 1000',
+  descriptionEn: 'Crucial domain in AZ-900 (30–35% of exam). Covers financial governance and cost optimization (Pricing Calculator, TCO Calculator, Cost Management, Budgets, Resource Tags, Reservations, Savings Plans, Azure Hybrid Benefit), enterprise governance and compliance (Microsoft Purview, Azure Policy, Policy Initiatives, Resource Locks, Service Trust Portal), management tools (Azure Portal, Azure PowerShell, Azure CLI, Cloud Shell, Azure Arc, ARM Templates, Bicep), and end-to-end monitoring (Azure Advisor 5 pillars, Azure Service Health, Azure Monitor, Log Analytics, Application Insights, Alerts).',
+  descriptionFr: 'Domaine crucial de l’examen AZ-900 (30 à 35%). Couvre la gouvernance financière et l’optimisation des coûts (Calculatrice de prix, TCO, Cost Management, Budgets, Balises, Réservations, Azure Hybrid Benefit), la gouvernance et conformité d’entreprise (Microsoft Purview, Azure Policy, Initiatives, Verrous de ressources, Service Trust Portal), les outils d’administration (Portail, PowerShell, CLI, Cloud Shell, Azure Arc, ARM/Bicep) et la surveillance continue (Azure Advisor, Azure Service Health, Azure Monitor, Log Analytics, Application Insights, Alertes).',
+};
+
+export const AZ900_DOMAIN_3_TASKS: Az900Domain3TopicSection[] = [
+  {
+    id: 'task-3-1',
+    titleEn: '3.1 Describe Cost Management in Azure',
+    titleFr: '3.1 Décrire la Gestion des Coûts dans Azure',
+    weight: '25% of Domain 3',
+    descriptionEn: 'Factors affecting costs (resource types, consumption, geographic regions, ingress/egress bandwidth), cost estimators (Pricing Calculator vs. TCO Calculator), Microsoft Cost Management (budgets, alerts, cost analysis), Resource Tags, and discount models (Reservations, Savings Plans, Azure Hybrid Benefit).',
+    descriptionFr: 'Facteurs influençant les coûts (types de ressources, consommation, régions géographiques, bande passante entrante/sortante), estimateurs de coûts (Calculatrice de prix vs Calculatrice TCO), Microsoft Cost Management (budgets, alertes, analyse des coûts), Balises de ressources et modèles de réduction (Réservations, Plans d’Épargne, Azure Hybrid Benefit).',
+    keyConcepts: [
+      {
+        nameEn: 'Pricing Calculator vs. Total Cost of Ownership (TCO) Calculator',
+        nameFr: 'Calculatrice de Prix vs Calculatrice du Coût Total de Possession (TCO)',
+        summaryEn: 'The Pricing Calculator estimates monthly costs for new, planned Azure resource architectures. The TCO Calculator compares the 5-year cost of maintaining on-premises datacenter hardware against migrating workloads to Azure.',
+        summaryFr: 'La calculatrice de prix estime les coûts mensuels de nouvelles architectures Azure planifiées. La calculatrice TCO compare le coût sur 5 ans du maintien d’un datacenter sur site avec la migration vers Azure.',
+        examTipEn: 'Exam keyword: "Estimate costs before provisioning" = Pricing Calculator. "Compare on-premises datacenter costs with Azure migration savings" = TCO Calculator.',
+        examTipFr: 'Mot-clé d’examen : "Estimer les coûts avant déploiement" = Calculatrice de prix. "Comparer les coûts sur site avec les économies de migration Azure" = Calculatrice TCO.',
+      },
+      {
+        nameEn: 'Data Ingress vs. Data Egress Bandwidth Costs',
+        nameFr: 'Bande Passante Entrante (Ingress) vs Sortante (Egress)',
+        summaryEn: 'Data transfer INTO Azure datacenters (Ingress) is always 100% FREE. Data transfer OUT of Azure datacenters (Egress) is charged per GB beyond the standard free monthly tier.',
+        summaryFr: 'Le transfert de données ENTRANT dans les datacenters Azure (Ingress) est TOUJOURS gratuit. Le transfert SORTANT d’Azure vers Internet (Egress) est facturé au Go au-delà du quota mensuel gratuit.',
+        examTipEn: 'Traffic between different Azure availability zones or across regions incurs network charges, while traffic within the same availability zone is free.',
+        examTipFr: 'Le trafic entre différentes zones de disponibilité ou entre régions engendre des frais réseau, alors que le trafic au sein d’une même zone de disponibilité est gratuit.',
+      },
+      {
+        nameEn: 'Resource Tags (Key-Value Metadata)',
+        nameFr: 'Balises de Ressources (Métadonnées Clé-Valeur)',
+        summaryEn: 'Tags are case-insensitive name-value pairs applied to resources, resource groups, and subscriptions for billing categorization, department cost allocation, and operational automation.',
+        summaryFr: 'Les balises sont des paires clé-valeur appliquées aux ressources, groupes de ressources et abonnements pour la catégorisation budgétaire, l’imputation par département et l’automatisation.',
+        examTipEn: 'CRUCIAL TRAP: Tags applied to a Resource Group are NOT inherited by the resources inside that group by default! You must enforce tag inheritance using Azure Policy.',
+        examTipFr: 'PIÈGE CRUCIAL : Les balises appliquées à un groupe de ressources NE sont PAS héritées par défaut par les ressources contenues ! Vous devez imposer cet héritage avec Azure Policy.',
+      },
+      {
+        nameEn: 'Azure Reservations & Azure Hybrid Benefit',
+        nameFr: 'Réservations Azure & Avantage Hybride Azure (AHB)',
+        summaryEn: 'Azure Reservations commit to 1- or 3-year usage for up to 72% discount on VMs and databases. Azure Hybrid Benefit allows reusing existing on-premises Windows Server / SQL Server licenses with Software Assurance to save up to 40%–85%.',
+        summaryFr: 'Les réservations Azure engagent sur 1 ou 3 ans pour jusqu’à 72% d’économie sur les VMs et bases SQL. L’Avantage Hybride Azure réutilise vos licences Windows Server / SQL Server sur site avec Software Assurance (jusqu’à 40%–85% d’économies).',
+        examTipEn: 'Reservations and Azure Hybrid Benefit can be combined for maximum cost reduction on enterprise Windows Server / SQL Server workloads.',
+        examTipFr: 'Les réservations et l’Avantage Hybride Azure peuvent être combinés pour maximiser la réduction des coûts sur les charges d’entreprise Windows Server et SQL Server.',
+      },
+    ],
+  },
+  {
+    id: 'task-3-2',
+    titleEn: '3.2 Describe Features and Tools in Azure for Governance and Compliance',
+    titleFr: '3.2 Décrire les Fonctionnalités et Outils de Gouvernance et Conformité',
+    weight: '25% of Domain 3',
+    descriptionEn: 'Microsoft Purview (data cataloging, lineage, sensitive data discovery), Azure Policy (enforcing rules and standards), Policy Initiatives (sets of policies), Resource Locks (CanNotDelete vs. ReadOnly, inheritance rules), and Service Trust Portal.',
+    descriptionFr: 'Microsoft Purview (catalogue de données, lignage, découverte de données sensibles), Azure Policy (application des règles et standards), Initiatives de stratégie (ensembles de règles), Verrous de ressources (CanNotDelete vs ReadOnly, héritage) et Service Trust Portal.',
+    keyConcepts: [
+      {
+        nameEn: 'Microsoft Purview (Unified Data Governance)',
+        nameFr: 'Microsoft Purview (Gouvernance Unifiée des Données)',
+        summaryEn: 'Provides automated data discovery, sensitive data scanning, classification, and end-to-end data lineage mapping across on-premises, multi-cloud, and SaaS systems.',
+        summaryFr: 'Fournit la découverte automatisée des données, la recherche de données sensibles, la classification et la cartographie du lignage de bout en bout sur site, multi-cloud et SaaS.',
+        examTipEn: 'Purview is for data governance and compliance (where is sensitive customer data stored?), while Azure Policy is for resource configuration governance.',
+        examTipFr: 'Purview gère la gouvernance des données (où sont les données sensibles ?), tandis qu’Azure Policy gère la gouvernance de la configuration des ressources.',
+      },
+      {
+        nameEn: 'Azure Policy & Policy Initiatives (Policy Sets)',
+        nameFr: 'Azure Policy & Initiatives de Stratégie (Policy Sets)',
+        summaryEn: 'Azure Policy evaluates resources against business rules (e.g., allowed VM SKUs, allowed deployment regions, requiring tags). An Initiative groups multiple related policies together to track compliance against a standard (e.g., PCI-DSS, HIPAA, ISO 27001).',
+        summaryFr: 'Azure Policy évalue les ressources par rapport aux règles de l’entreprise (tailles de VM autorisées, régions autorisées, balises obligatoires). Une initiative regroupe plusieurs stratégies liées pour suivre la conformité à un standard (PCI-DSS, HIPAA, ISO 27001).',
+        examTipEn: 'Azure Policy focuses on resource properties and configurations; it does NOT grant permissions to users (that is the role of Azure RBAC).',
+        examTipFr: 'Azure Policy se concentre sur les propriétés et configurations des ressources ; elle NE donne PAS de permissions aux utilisateurs (rôle dévolu à Azure RBAC).',
+      },
+      {
+        nameEn: 'Resource Locks: CanNotDelete vs. ReadOnly',
+        nameFr: 'Verrous de Ressources : CanNotDelete vs ReadOnly',
+        summaryEn: 'CanNotDelete (Delete lock): Authorized users can read and modify a resource, but cannot delete it. ReadOnly: Authorized users can read, but cannot modify or delete the resource.',
+        summaryFr: 'CanNotDelete : Les utilisateurs autorisés peuvent lire et modifier une ressource, mais ne peuvent pas la supprimer. ReadOnly : Les utilisateurs autorisés peuvent lire, mais ne peuvent ni modifier ni supprimer.',
+        examTipEn: 'Locks override RBAC permissions. Even an Owner or Global Admin cannot delete a locked resource without first explicitly removing the lock.',
+        examTipFr: 'Les verrous l’emportent sur le RBAC. Même un Propriétaire (Owner) ne peut pas supprimer une ressource verrouillée sans retirer d’abord le verrou.',
+      },
+      {
+        nameEn: 'Service Trust Portal (Compliance & Audit Reports)',
+        nameFr: 'Service Trust Portal (Rapports d’Audit et Conformité)',
+        summaryEn: 'Public Microsoft portal that provides published independent third-party audit reports, ISO/IEC certifications, SOC 1/2/3 reports, FedRAMP approvals, and GDPR implementation guidelines.',
+        summaryFr: 'Portail public Microsoft fournissant les rapports d’audit indépendants publiés, certifications ISO/IEC, rapports SOC 1/2/3, agréments FedRAMP et guides RGPD.',
+        examTipEn: 'When auditors request official proof of Microsoft datacenter compliance certificates, direct them to the Service Trust Portal.',
+        examTipFr: 'Lorsque des auditeurs demandent les certificats de conformité officiels des datacenters Microsoft, orientez-les vers le Service Trust Portal.',
+      },
+    ],
+  },
+  {
+    id: 'task-3-3',
+    titleEn: '3.3 Describe Features and Tools for Managing and Deploying Azure Resources',
+    titleFr: '3.3 Décrire les Outils de Gestion et de Déploiement des Ressources Azure',
+    weight: '25% of Domain 3',
+    descriptionEn: 'Azure Portal, Azure PowerShell, Azure CLI, Azure Cloud Shell, Azure Arc (hybrid and multi-cloud extension), Infrastructure as Code (IaC), Azure Resource Manager (ARM) templates, and Azure Bicep.',
+    descriptionFr: 'Portail Azure, Azure PowerShell, Azure CLI, Azure Cloud Shell, Azure Arc (extension hybride et multi-cloud), Infrastructure as Code (IaC), modèles ARM et Azure Bicep.',
+    keyConcepts: [
+      {
+        nameEn: 'Azure PowerShell vs. Azure CLI',
+        nameFr: 'Azure PowerShell vs Azure CLI',
+        summaryEn: 'Both are cross-platform command-line tools. Azure PowerShell uses cmdlets (Verb-Noun syntax like `New-AzVM`) returning .NET objects. Azure CLI uses straightforward command syntax (`az vm create`) returning JSON text.',
+        summaryFr: 'Les deux sont multiplateformes. Azure PowerShell utilise des cmdlets (syntaxe Verbe-Nom telle que `New-AzVM`) renvoyant des objets .NET. Azure CLI utilise une syntaxe épurée (`az vm create`) renvoyant du texte JSON.',
+        examTipEn: 'Azure CLI and Azure PowerShell are both available on Windows, macOS, and Linux.',
+        examTipFr: 'Azure CLI et Azure PowerShell fonctionnent tous les deux sur Windows, macOS et Linux.',
+      },
+      {
+        nameEn: 'Azure Cloud Shell',
+        nameFr: 'Azure Cloud Shell',
+        summaryEn: 'A browser-based, authenticated terminal accessible directly from the Azure portal or shell.azure.com. Supports both Bash and PowerShell with pre-installed CLI tools. Requires an Azure Storage account for persistent cloud files.',
+        summaryFr: 'Terminal authentifié basé sur navigateur accessible depuis le portail ou shell.azure.com. Prend en charge Bash et PowerShell avec outils préinstallés. Nécessite un compte de stockage Azure pour les fichiers persistants.',
+        examTipEn: 'Cloud Shell automatically authenticates with the Azure account used to sign in to the portal.',
+        examTipFr: 'Cloud Shell s’authentifie automatiquement avec le compte Azure connecté au portail.',
+      },
+      {
+        nameEn: 'Azure Arc (Hybrid & Multi-Cloud Unified Management)',
+        nameFr: 'Azure Arc (Gestion Unifiée Hybride & Multi-Cloud)',
+        summaryEn: 'Extends Azure Resource Manager management to servers (Windows/Linux), Kubernetes clusters, and Azure data services running outside Azure (on-premises datacenters, AWS, GCP, edge).',
+        summaryFr: 'Étend la gestion ARM aux serveurs (Windows/Linux), clusters Kubernetes et services de données exécutés hors d’Azure (datacenters sur site, AWS, GCP, edge).',
+        examTipEn: 'Exam trigger: "Manage on-premises servers or AWS resources using Azure Policy and Defender from a single control plane" = Azure Arc.',
+        examTipFr: 'Déclencheur d’examen : "Gérer des serveurs sur site ou des ressources AWS avec Azure Policy et Defender depuis un plan de contrôle unique" = Azure Arc.',
+      },
+      {
+        nameEn: 'ARM Templates vs. Azure Bicep',
+        nameFr: 'Modèles ARM (JSON) vs Azure Bicep',
+        summaryEn: 'Both provide declarative Infrastructure as Code (IaC) with idempotency. ARM Templates use verbose JSON syntax. Bicep is a modern domain-specific language (DSL) with concise syntax, better type safety, and automatic transpilation to ARM templates.',
+        summaryFr: 'Les deux offrent une Infrastructure as Code (IaC) déclarative et idempotente. Les modèles ARM utilisent une syntaxe JSON verbeuse. Bicep est un DSL moderne avec une syntaxe concise, un meilleur typage et une compilation automatique vers ARM.',
+        examTipEn: 'Bicep is an abstraction over ARM templates; all capabilities of ARM templates are supported natively with Day-zero feature support.',
+        examTipFr: 'Bicep est une abstraction au-dessus des modèles ARM ; toutes les fonctionnalités ARM sont supportées dès le premier jour.',
+      },
+    ],
+  },
+  {
+    id: 'task-3-4',
+    titleEn: '3.4 Describe Monitoring Tools in Azure',
+    titleFr: '3.4 Décrire les Outils de Surveillance et de Monitoring dans Azure',
+    weight: '25% of Domain 3',
+    descriptionEn: 'Azure Advisor (Cost, Security, Reliability, Performance, Operational Excellence), Azure Service Health (Azure Status, Service Health, Resource Health), Azure Monitor (Metrics vs. Logs, Log Analytics, KQL), Application Insights, and Alerting Action Groups.',
+    descriptionFr: 'Azure Advisor (Coûts, Sécurité, Fiabilité, Performances, Excellence Opérationnelle), Azure Service Health (Statut Azure, Santé du Service, Santé des Ressources), Azure Monitor (Métriques vs Journaux, Log Analytics, KQL), Application Insights et Groupes d’Actions.',
+    keyConcepts: [
+      {
+        nameEn: 'Azure Advisor (5 Pillars of Well-Architected Framework)',
+        nameFr: 'Azure Advisor (5 Piliers du Well-Architected Framework)',
+        summaryEn: 'Personalized cloud consultant that analyzes resource configurations and usage telemetry to provide proactive recommendations across 5 pillars: Cost, Security, Reliability, Performance, and Operational Excellence.',
+        summaryFr: 'Consultant cloud personnalisé qui analyse les configurations et télémétrie d’usage pour fournir des recommandations proactives sur 5 piliers : Coûts, Sécurité, Fiabilité, Performances et Excellence Opérationnelle.',
+        examTipEn: 'Advisor recommends shutting down or rightsizing underutilized VMs and buying reservations to save money.',
+        examTipFr: 'Advisor recommande d’éteindre ou redimensionner les VMs sous-utilisées et d’acheter des réservations pour réduire la facture.',
+      },
+      {
+        nameEn: 'Azure Service Health: 3-Tier Hierarchy',
+        nameFr: 'Azure Service Health : Hiérarchie à 3 Niveaux',
+        summaryEn: 'Azure Status: Global public view of outages across all Azure regions worldwide. Service Health: Personalized view of outages, planned maintenance, and health advisories impacting YOUR specific subscriptions. Resource Health: Granular health status for a specific individual resource (e.g., VM running or down).',
+        summaryFr: 'Azure Status : Vue publique globale des pannes dans toutes les régions Azure mondiales. Service Health : Vue personnalisée des pannes, maintenances planifiées et avis impactant VOS abonnements. Resource Health : Santé granulaire d’une ressource spécifique (ex: VM en ligne ou dégradée).',
+        examTipEn: 'Exam question asking about a personalized notification regarding upcoming planned maintenance on your region = Service Health (not Azure Status).',
+        examTipFr: 'Question d’examen sur une notification personnalisée concernant une maintenance planifiée dans votre région = Service Health (et non Azure Status).',
+      },
+      {
+        nameEn: 'Azure Monitor: Metrics vs. Logs',
+        nameFr: 'Azure Monitor : Métriques vs Journaux (Logs)',
+        summaryEn: 'Metrics are numerical time-series values recorded at fixed intervals (lightweight, near real-time, ideal for CPU % or network throughput alerts). Logs contain structured records with timestamps (collected in Log Analytics workspaces, queried using Kusto Query Language / KQL).',
+        summaryFr: 'Les métriques sont des valeurs numériques de séries chronologiques enregistrées à intervalles réguliers (légères, quasi temps réel, idéales pour alertes CPU % ou débit réseau). Les journaux contiennent des données structurées analysées avec KQL dans Log Analytics.',
+        examTipEn: 'For complex telemetry queries, root-cause troubleshooting, and correlation across multiple services, use Azure Log Analytics with KQL.',
+        examTipFr: 'Pour les requêtes télémétriques complexes, l’analyse des causes racines et la corrélation multi-services, utilisez Azure Log Analytics avec KQL.',
+      },
+      {
+        nameEn: 'Application Insights (APM)',
+        nameFr: 'Application Insights (Surveillance de la Performance Applicative)',
+        summaryEn: 'Feature of Azure Monitor for developers that monitors live web applications. Tracks request rates, response times, failure rates, exceptions, and AJAX dependencies across .NET, Java, Node.js, and Python.',
+        summaryFr: 'Fonctionnalité d’Azure Monitor pour développeurs qui surveille les applications web en production. Suit le taux de requêtes, temps de réponse, taux d’échecs, exceptions et dépendances AJAX (.NET, Java, Node.js, Python).',
+        examTipEn: 'Exam trigger: "Monitor user behavior, page load times, and detect exceptions in a web application without modifying code" = Application Insights.',
+        examTipFr: 'Déclencheur d’examen : "Surveiller les temps de chargement des pages, le comportement utilisateur et détecter les exceptions applicatives" = Application Insights.',
+      },
+    ],
+  },
+];
+
+export const COST_MANAGEMENT_TOOLS_COMPARISON_TABLE = [
+  {
+    toolEn: 'Azure Pricing Calculator',
+    toolFr: 'Calculatrice de Prix Azure',
+    purposeEn: 'Estimate future monthly and upfront costs for planned Azure resources before deployment',
+    purposeFr: 'Estimer les coûts mensuels futurs de ressources Azure planifiées avant tout déploiement',
+    inputEn: 'Selected services, regions, tiers, VM sizes, hours of operation, storage volume',
+    inputFr: 'Services choisis, régions, niveaux, tailles de VM, heures d’exécution, volume de stockage',
+    primaryAudienceEn: 'Architects, engineers, sales teams planning a new cloud solution',
+    primaryAudienceFr: 'Architectes, ingénieurs et équipes commerciales concevant une nouvelle solution',
+    keyExamTrapEn: 'Does NOT compare on-premises datacenter costs; estimates future Azure usage only',
+    keyExamTrapFr: 'Ne compare PAS les coûts sur site ; estime uniquement les consommations futures sur Azure',
+  },
+  {
+    toolEn: 'Total Cost of Ownership (TCO) Calculator',
+    toolFr: 'Calculatrice du Coût Total de Possession (TCO)',
+    purposeEn: 'Calculate financial cost savings over 1, 3, or 5 years by migrating on-premises infrastructure to Azure',
+    purposeFr: 'Calculer les économies financières sur 1, 3 ou 5 ans en migrant l’infrastructure sur site vers Azure',
+    inputEn: 'Current on-prem servers, storage hardware, networking, electricity, cooling, facilities, IT labor',
+    inputFr: 'Serveurs physiques actuels, baies de stockage, réseau, électricité, locaux, main-d’œuvre IT',
+    primaryAudienceEn: 'C-level executives (CIO, CFO) building the financial business case for cloud migration',
+    primaryAudienceFr: 'Direction financière (CFO, DSI) construisant le dossier financier de migration cloud',
+    keyExamTrapEn: 'Outputs a detailed comparison report demonstrating cost reductions from hardware retirement',
+    keyExamTrapFr: 'Génère un rapport de comparaison détaillant les économies issues de la fin du matériel sur site',
+  },
+  {
+    toolEn: 'Microsoft Cost Management',
+    toolFr: 'Microsoft Cost Management',
+    purposeEn: 'Analyze historical spending, monitor current cloud usage, set budget alerts, and forecast future bills',
+    purposeFr: 'Analyser les dépenses passées, surveiller l’usage courant, configurer des alertes de budget et prévoir la facture',
+    inputEn: 'Actual Azure consumption telemetry across subscriptions, management groups, and resource tags',
+    inputFr: 'Consommation Azure réelle sur les abonnements, groupes de gestion et balises de ressources',
+    primaryAudienceEn: 'FinOps teams, cloud administrators, and department budget owners',
+    primaryAudienceFr: 'Équipes FinOps, administrateurs cloud et responsables budgétaires de départements',
+    keyExamTrapEn: 'Can trigger email alerts or Action Groups when spending exceeds 80% or 100% of defined budget',
+    keyExamTrapFr: 'Peut déclencher des e-mails ou des groupes d’actions quand les dépenses dépassent 80% ou 100% du budget',
+  },
+  {
+    toolEn: 'Azure Advisor (Cost Pillar)',
+    toolFr: 'Azure Advisor (Pilier Coûts)',
+    purposeEn: 'Provide personalized, proactive recommendations to reduce waste (e.g., shutdown idle VMs, buy reservations)',
+    purposeFr: 'Fournir des recommandations proactives et personnalisées pour éliminer le gaspillage (VMs inactives, réservations)',
+    inputEn: 'Telemetric usage patterns (CPU, memory, disk activity over the last 7 to 14 days)',
+    inputFr: 'Télémétrie d’usage réel (CPU, mémoire, activité disque sur les 7 à 14 derniers jours)',
+    primaryAudienceEn: 'DevOps and system engineers looking for immediate actionable optimizations',
+    primaryAudienceFr: 'Ingénieurs DevOps et systèmes cherchant des optimisations immédiates et concrètes',
+    keyExamTrapEn: 'Recommends resizing underutilized instances and calculating potential dollar savings',
+    keyExamTrapFr: 'Recommande de réduire la taille des instances sous-utilisées et calcule le montant des économies',
+  },
+];
+
+export const GOVERNANCE_AND_MONITORING_TABLE = [
+  {
+    toolEn: 'Azure Policy',
+    toolFr: 'Azure Policy',
+    focusEn: 'Resource Configuration Compliance',
+    focusFr: 'Conformité des Configurations de Ressources',
+    mechanismEn: 'Enforces business rules on resource properties at deployment and scans existing resources',
+    mechanismFr: 'Applique des règles métier sur les propriétés des ressources au déploiement et audite l’existant',
+    commonUseCasesEn: 'Enforce allowed deployment regions, mandate required tags, restrict allowed VM sizes',
+    commonUseCasesFr: 'Imposer les régions de déploiement autorisées, exiger des balises, restreindre les tailles de VM',
+    overriddenByEn: 'Policy exemptions; cannot be bypassed by standard subscription Owners',
+    overriddenByFr: 'Exemptions de stratégie ; ne peut pas être contourné par les Propriétaires',
+  },
+  {
+    toolEn: 'Resource Locks',
+    toolFr: 'Verrous de Ressources',
+    focusEn: 'Accidental Deletion / Modification Protection',
+    focusFr: 'Protection contre la Suppression ou Modification Accidentelle',
+    mechanismEn: 'Locks resource at ARM layer with CanNotDelete or ReadOnly; applies to all users regardless of role',
+    mechanismFr: 'Verrouille au niveau ARM avec CanNotDelete ou ReadOnly ; s’applique à tous les rôles',
+    commonUseCasesEn: 'Prevent deletion of critical production databases, ExpressRoute circuits, or DNS zones',
+    commonUseCasesFr: 'Empêcher la suppression de bases de données de production, circuits ExpressRoute ou zones DNS',
+    overriddenByEn: 'Must be explicitly removed by an authorized administrator (Owner/User Access Admin) first',
+    overriddenByFr: 'Doit d’abord être explicitement supprimé par un administrateur autorisé',
+  },
+  {
+    toolEn: 'Azure RBAC',
+    toolFr: 'Azure RBAC',
+    focusEn: 'User Authorization & Access Control',
+    focusFr: 'Autorisation des Utilisateurs & Contrôle d’Accès',
+    mechanismEn: 'Assigns security principals (Users, Groups, SPNs) specific roles (Reader, Contributor, Owner) at a scope',
+    mechanismFr: 'Assigne des rôles (Lecteur, Contributeur, Propriétaire) à des entités de sécurité sur un périmètre',
+    commonUseCasesEn: 'Grant developers rights to deploy Web Apps without giving access to billing or production VNets',
+    commonUseCasesFr: 'Accorder aux développeurs le droit de déployer des Web Apps sans accès à la facturation ou aux VNets prod',
+    overriddenByEn: 'Higher-level denies (Role Assignment deny assignments)',
+    overriddenByFr: 'Assignations de refus explicites de niveau supérieur',
+  },
+  {
+    toolEn: 'Microsoft Purview',
+    toolFr: 'Microsoft Purview',
+    focusEn: 'Data Governance & Information Protection',
+    focusFr: 'Gouvernance des Données & Protection de l’Information',
+    mechanismEn: 'Discovers and catalogs sensitive structured and unstructured data across hybrid and multi-cloud systems',
+    mechanismFr: 'Découvre et catalogue les données sensibles structurées et non structurées sur site et multi-cloud',
+    commonUseCasesEn: 'Map customer PII (credit cards, passports, medical records) and trace end-to-end data lineage',
+    commonUseCasesFr: 'Cartographier les données personnelles (cartes de crédit, passeports) et tracer le lignage des données',
+    overriddenByEn: 'Data privacy policies and sensitivity label configurations',
+    overriddenByFr: 'Politiques de confidentialité des données et étiquettes de sensibilité',
+  },
+  {
+    toolEn: 'Azure Monitor',
+    toolFr: 'Azure Monitor',
+    focusEn: 'Full-Stack Observability & Telemetry',
+    focusFr: 'Observabilité Globale & Télémétrie',
+    mechanismEn: 'Collects metrics (near real-time) and logs into Log Analytics workspaces, powering alerts and dashboards',
+    mechanismFr: 'Collecte métriques (quasi temps réel) et journaux dans Log Analytics pour alimenter alertes et tableaux de bord',
+    commonUseCasesEn: 'Autoscale VMs on high CPU load, trigger email alerts on HTTP 500 errors, run KQL queries',
+    commonUseCasesFr: 'Autoscaler les VMs en cas de fort CPU, envoyer une alerte sur erreur HTTP 500, requêtes KQL',
+    overriddenByEn: 'Diagnostic settings configurations and alert rule thresholds',
+    overriddenByFr: 'Paramètres de diagnostic et seuils des règles d’alerte',
+  },
+];

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ActiveTab, Provider } from './types';
 import { LanguageProvider } from './context/LanguageContext';
+import { SystemUpdateProvider } from './context/SystemUpdateContext';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { CareerPathwaysView } from './components/CareerPathwaysView';
@@ -9,8 +10,12 @@ import { StudyDashboardView } from './components/StudyDashboardView';
 import { PracticeExamLabView } from './components/PracticeExamLabView';
 import { CheatsheetsPlaygroundView } from './components/CheatsheetsPlaygroundView';
 import { ClfC02LearningHub } from './components/ClfC02LearningHub';
+import { Az900LearningHub } from './components/Az900LearningHub';
+import { Cv0004LearningHub } from './components/Cv0004LearningHub';
 import { QuickSearchModal } from './components/QuickSearchModal';
 import { SkillAssessmentModal } from './components/SkillAssessmentModal';
+import { SystemSettingsModal } from './components/SystemSettingsModal';
+import { UpdateNotificationToast } from './components/UpdateNotificationToast';
 
 function AppContent() {
   const [activeTab, setActiveTab] = useState<ActiveTab>('career-pathways');
@@ -106,13 +111,37 @@ function AppContent() {
               <ClfC02LearningHub onNavigate={setActiveTab} />
             </motion.div>
           )}
+
+          {activeTab === 'az-900-hub' && (
+            <motion.div
+              key="az-900-hub"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.2 }}
+            >
+              <Az900LearningHub onNavigate={setActiveTab} />
+            </motion.div>
+          )}
+
+          {activeTab === 'cv0-004-hub' && (
+            <motion.div
+              key="cv0-004-hub"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.2 }}
+            >
+              <Cv0004LearningHub onNavigate={setActiveTab} />
+            </motion.div>
+          )}
         </AnimatePresence>
       </main>
 
       {/* Global Footer */}
       <Footer />
 
-      {/* Global Modals */}
+      {/* Global Modals & Notifications */}
       <QuickSearchModal
         isOpen={isSearchOpen}
         onClose={() => setIsSearchOpen(false)}
@@ -124,6 +153,12 @@ function AppContent() {
         onClose={() => setIsAssessmentOpen(false)}
         onSelectTrack={handleSelectTrack}
       />
+
+      {/* System Settings & Updates Modal */}
+      <SystemSettingsModal />
+
+      {/* Automatic Background Update Notification Toast */}
+      <UpdateNotificationToast />
     </div>
   );
 }
@@ -131,7 +166,9 @@ function AppContent() {
 export default function App() {
   return (
     <LanguageProvider>
-      <AppContent />
+      <SystemUpdateProvider>
+        <AppContent />
+      </SystemUpdateProvider>
     </LanguageProvider>
   );
 }

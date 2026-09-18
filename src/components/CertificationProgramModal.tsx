@@ -233,7 +233,21 @@ export const CertificationProgramModal: React.FC<CertificationProgramModalProps>
                 className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-[#ff9900]/20 hover:bg-[#ff9900] text-[#ffb95f] hover:text-[#0f131d] text-xs font-mono-code font-bold flex items-center justify-center gap-1.5 transition-all border border-[#ff9900]/40"
               >
                 <span className="material-symbols-outlined text-[16px]">style</span>
-                <span>{language === 'fr' ? 'Domaine 1 & 100 Flashcards' : 'Domain 1 & 100 Flashcards'}</span>
+                <span>{language === 'fr' ? '450 Flashcards & Hub CLF' : '450 Flashcards & CLF Hub'}</span>
+              </button>
+            )}
+
+            {cert.code === 'AZ-900' && onNavigate && (
+              <button
+                type="button"
+                onClick={() => {
+                  onClose();
+                  onNavigate('az-900-hub');
+                }}
+                className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-[#0078d4]/20 hover:bg-[#0078d4] text-[#70baff] hover:text-white text-xs font-mono-code font-bold flex items-center justify-center gap-1.5 transition-all border border-[#0078d4]/40"
+              >
+                <span className="material-symbols-outlined text-[16px]">style</span>
+                <span>{language === 'fr' ? '300 Flashcards & Hub AZ-900' : '300 Flashcards & AZ-900 Hub'}</span>
               </button>
             )}
 

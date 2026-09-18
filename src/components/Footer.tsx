@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
+import { useSystemUpdate } from '../context/SystemUpdateContext';
 
 export const Footer: React.FC = () => {
   const [showStatusModal, setShowStatusModal] = useState(false);
   const [showApiModal, setShowApiModal] = useState(false);
   const { t, language } = useLanguage();
+  const { currentVersion, setIsSettingsOpen, lastCheckedFormatted } = useSystemUpdate();
 
   return (
     <>
@@ -12,10 +14,19 @@ export const Footer: React.FC = () => {
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           {/* Left info */}
           <div className="flex items-center gap-3">
-            <div className="flex items-center gap-2">
+            <button
+              onClick={() => setIsSettingsOpen(true)}
+              className="flex items-center gap-2 hover:text-white transition-colors cursor-pointer group"
+              title={language === 'fr' ? 'Ouvrir les Paramètres Système' : 'Open System Settings'}
+            >
               <span className="w-2 h-2 rounded-full bg-[#03b5d3] animate-pulse"></span>
-              <span className="font-mono-code text-[11px] text-[#dfe2f1]">Cloudor Engine v4.8.2-prod</span>
-            </div>
+              <span className="font-mono-code text-[11px] text-[#dfe2f1] group-hover:text-[#4cd7f6] transition-colors">
+                Cloudor Engine {currentVersion}
+              </span>
+              <span className="material-symbols-outlined text-[14px] text-[#908fa0] group-hover:text-white transition-colors">
+                settings
+              </span>
+            </button>
             <span className="text-[#313540]">|</span>
             <span className="text-[#c7c4d7]">
               {language === 'fr' ? 'Cadre d’Architecture Cloud Certifié' : 'Certified Cloud Architect Framework'}
@@ -25,11 +36,15 @@ export const Footer: React.FC = () => {
           {/* Center Links */}
           <div className="flex items-center gap-6 font-mono-code text-[11px]">
             <button
-              onClick={() => setShowStatusModal(true)}
-              className="hover:text-[#4cd7f6] transition-colors flex items-center gap-1.5"
+              onClick={() => setIsSettingsOpen(true)}
+              className="hover:text-[#4cd7f6] transition-colors flex items-center gap-1.5 cursor-pointer"
             >
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-              <span>{language === 'fr' ? 'Systèmes Opérationnels' : 'All Systems Operational'}</span>
+              <span>
+                {language === 'fr'
+                  ? `Vérifié : ${lastCheckedFormatted}`
+                  : `Checked: ${lastCheckedFormatted}`}
+              </span>
             </button>
             <button
               onClick={() => setShowApiModal(true)}

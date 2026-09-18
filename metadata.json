@@ -1,6 +1,6 @@
 {
   "name": "Cloudor",
-  "description": "Multi-cloud architecture cheatsheets, practice exam simulation lab, interactive HA topology sandboxes, and certification career pathways for AWS, Azure, GCP, and Kubernetes.",
+  "description": "Multi-cloud architecture cheatsheets, 100-flashcard drills for CompTIA Cloud+ CV0-004 and Azure/AWS hubs, practice exam simulation lab, and certification career pathways.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

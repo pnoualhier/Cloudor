@@ -3,7 +3,9 @@ export type ActiveTab =
   | 'my-study-dashboard'
   | 'practice-exam-lab'
   | 'cheatsheets-and-playground'
-  | 'clf-c02-hub';
+  | 'clf-c02-hub'
+  | 'az-900-hub'
+  | 'cv0-004-hub';
 
 export type Provider = 'all' | 'aws' | 'azure' | 'gcp' | 'k8s' | 'comptia';
 

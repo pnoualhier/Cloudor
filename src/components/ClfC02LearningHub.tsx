@@ -11,6 +11,7 @@ import {
   CLF_C02_DOMAIN_1_100_FLASHCARDS,
   CLF_C02_DOMAIN_2_100_FLASHCARDS,
   CLF_C02_DOMAIN_3_100_FLASHCARDS,
+  CLF_C02_DOMAIN_4_100_FLASHCARDS,
   ClfC02Flashcard,
 } from '../data/clfC02FlashcardsData';
 
@@ -27,8 +28,8 @@ export const ClfC02LearningHub: React.FC<ClfC02LearningHubProps> = ({
   // Primary mode: 'domain1' (Official Learning Guide) vs 'flashcards' (Flashcard Decks)
   const [activeView, setActiveView] = useState<'domain1' | 'flashcards'>(initialMode);
 
-  // Active Flashcard Deck: 'domain1_100' (100 Cards - D1) vs 'domain2_100' (100 Cards - D2) vs 'domain3_100' (100 Cards - D3) vs 'all_50' (50 Cards - Full Blueprint)
-  const [activeDeck, setActiveDeck] = useState<'domain1_100' | 'domain2_100' | 'domain3_100' | 'all_50'>('domain1_100');
+  // Active Flashcard Deck: 'all_400' (All 4 Domains) vs 'domain1_100' (D1) vs 'domain2_100' (D2) vs 'domain3_100' (D3) vs 'domain4_100' (D4) vs 'all_50' (50 Practice Mock)
+  const [activeDeck, setActiveDeck] = useState<'all_400' | 'domain1_100' | 'domain2_100' | 'domain3_100' | 'domain4_100' | 'all_50'>('all_400');
 
   // Domain 1 syllabus state
   const [selectedTaskId, setSelectedTaskId] = useState<string>('task-1-1');
@@ -95,6 +96,25 @@ export const ClfC02LearningHub: React.FC<ClfC02LearningHubProps> = ({
   const [reviewD3CardIds, setReviewD3CardIds] = useState<number[]>(() => {
     try {
       const saved = localStorage.getItem('cloudor_clf_d3_100_review');
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
+
+  // Mastery tracking for Domain 4 (100 Cards)
+  const [masteredD4CardIds, setMasteredD4CardIds] = useState<number[]>(() => {
+    try {
+      const saved = localStorage.getItem('cloudor_clf_d4_100_mastered');
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
+
+  const [reviewD4CardIds, setReviewD4CardIds] = useState<number[]>(() => {
+    try {
+      const saved = localStorage.getItem('cloudor_clf_d4_100_review');
       return saved ? JSON.parse(saved) : [];
     } catch {
       return [];
@@ -171,6 +191,23 @@ export const ClfC02LearningHub: React.FC<ClfC02LearningHubProps> = ({
     }
   }, [reviewD3CardIds]);
 
+  // Persist Domain 4 progress
+  useEffect(() => {
+    try {
+      localStorage.setItem('cloudor_clf_d4_100_mastered', JSON.stringify(masteredD4CardIds));
+    } catch {
+      // ignore
+    }
+  }, [masteredD4CardIds]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('cloudor_clf_d4_100_review', JSON.stringify(reviewD4CardIds));
+    } catch {
+      // ignore
+    }
+  }, [reviewD4CardIds]);
+
   // Persist All Domains (50 Cards) progress
   useEffect(() => {
     try {
@@ -188,45 +225,102 @@ export const ClfC02LearningHub: React.FC<ClfC02LearningHubProps> = ({
     }
   }, [reviewAllCardIds]);
 
-  // Active mastered & review lists based on selected deck
-  const activeMasteredIds =
-    activeDeck === 'domain1_100'
-      ? masteredD1CardIds
-      : activeDeck === 'domain2_100'
-      ? masteredD2CardIds
-      : activeDeck === 'domain3_100'
-      ? masteredD3CardIds
-      : masteredAllCardIds;
+  // Combined 400 flashcards array across Domains 1, 2, 3 and 4
+  const ALL_400_FLASHCARDS: ClfC02Flashcard[] = useMemo(
+    () => [
+      ...CLF_C02_DOMAIN_1_100_FLASHCARDS,
+      ...CLF_C02_DOMAIN_2_100_FLASHCARDS,
+      ...CLF_C02_DOMAIN_3_100_FLASHCARDS,
+      ...CLF_C02_DOMAIN_4_100_FLASHCARDS,
+    ],
+    []
+  );
 
-  const activeReviewIds =
-    activeDeck === 'domain1_100'
-      ? reviewD1CardIds
-      : activeDeck === 'domain2_100'
-      ? reviewD2CardIds
-      : activeDeck === 'domain3_100'
-      ? reviewD3CardIds
-      : reviewAllCardIds;
+  // Helper checks for mastery & review status taking domain into account
+  const isCardMastered = useCallback(
+    (card: ClfC02Flashcard) => {
+      if (activeDeck === 'all_50') {
+        return masteredAllCardIds.includes(card.id);
+      }
+      if (card.domainNumber === 1) return masteredD1CardIds.includes(card.id);
+      if (card.domainNumber === 2) return masteredD2CardIds.includes(card.id);
+      if (card.domainNumber === 3) return masteredD3CardIds.includes(card.id);
+      if (card.domainNumber === 4) return masteredD4CardIds.includes(card.id);
+      return false;
+    },
+    [activeDeck, masteredAllCardIds, masteredD1CardIds, masteredD2CardIds, masteredD3CardIds, masteredD4CardIds]
+  );
 
-  const activeDeckTotal = activeDeck === 'all_50' ? 50 : 100;
+  const isCardReview = useCallback(
+    (card: ClfC02Flashcard) => {
+      if (activeDeck === 'all_50') {
+        return reviewAllCardIds.includes(card.id);
+      }
+      if (card.domainNumber === 1) return reviewD1CardIds.includes(card.id);
+      if (card.domainNumber === 2) return reviewD2CardIds.includes(card.id);
+      if (card.domainNumber === 3) return reviewD3CardIds.includes(card.id);
+      if (card.domainNumber === 4) return reviewD4CardIds.includes(card.id);
+      return false;
+    },
+    [activeDeck, reviewAllCardIds, reviewD1CardIds, reviewD2CardIds, reviewD3CardIds, reviewD4CardIds]
+  );
+
+  const activeDeckTotal = activeDeck === 'all_400' ? 400 : activeDeck === 'all_50' ? 50 : 100;
+
+  const activeMasteredCount =
+    activeDeck === 'all_400'
+      ? masteredD1CardIds.length +
+        masteredD2CardIds.length +
+        masteredD3CardIds.length +
+        masteredD4CardIds.length
+      : activeDeck === 'domain1_100'
+      ? masteredD1CardIds.length
+      : activeDeck === 'domain2_100'
+      ? masteredD2CardIds.length
+      : activeDeck === 'domain3_100'
+      ? masteredD3CardIds.length
+      : activeDeck === 'domain4_100'
+      ? masteredD4CardIds.length
+      : masteredAllCardIds.length;
+
+  const activeReviewCount =
+    activeDeck === 'all_400'
+      ? reviewD1CardIds.length +
+        reviewD2CardIds.length +
+        reviewD3CardIds.length +
+        reviewD4CardIds.length
+      : activeDeck === 'domain1_100'
+      ? reviewD1CardIds.length
+      : activeDeck === 'domain2_100'
+      ? reviewD2CardIds.length
+      : activeDeck === 'domain3_100'
+      ? reviewD3CardIds.length
+      : activeDeck === 'domain4_100'
+      ? reviewD4CardIds.length
+      : reviewAllCardIds.length;
 
   // Filtered flashcards list
   const filteredCards = useMemo(() => {
     let cards =
-      activeDeck === 'domain1_100'
+      activeDeck === 'all_400'
+        ? [...ALL_400_FLASHCARDS]
+        : activeDeck === 'domain1_100'
         ? [...CLF_C02_DOMAIN_1_100_FLASHCARDS]
         : activeDeck === 'domain2_100'
         ? [...CLF_C02_DOMAIN_2_100_FLASHCARDS]
         : activeDeck === 'domain3_100'
         ? [...CLF_C02_DOMAIN_3_100_FLASHCARDS]
+        : activeDeck === 'domain4_100'
+        ? [...CLF_C02_DOMAIN_4_100_FLASHCARDS]
         : [...CLF_C02_50_FLASHCARDS];
 
-    // Filter by task statement if on Domain 1, Domain 2, or Domain 3 deck
-    if (activeDeck === 'domain1_100' || activeDeck === 'domain2_100' || activeDeck === 'domain3_100') {
+    // Filter by task statement if on Domain 1, Domain 2, Domain 3, or Domain 4 deck
+    if (activeDeck === 'domain1_100' || activeDeck === 'domain2_100' || activeDeck === 'domain3_100' || activeDeck === 'domain4_100') {
       if (selectedTaskFilter !== 'all') {
         cards = cards.filter((c) => c.taskStatement.includes(`Task ${selectedTaskFilter}`));
       }
     } else {
-      // Filter by domain number if on 50-cards deck
+      // Filter by domain number if on 400-cards or 50-cards deck
       if (selectedDomainFilter !== 'all') {
         cards = cards.filter((c) => c.domainNumber === selectedDomainFilter);
       }
@@ -234,9 +328,9 @@ export const ClfC02LearningHub: React.FC<ClfC02LearningHubProps> = ({
 
     // Status filter
     if (selectedStatusFilter === 'mastered') {
-      cards = cards.filter((c) => activeMasteredIds.includes(c.id));
+      cards = cards.filter((c) => isCardMastered(c));
     } else if (selectedStatusFilter === 'review') {
-      cards = cards.filter((c) => activeReviewIds.includes(c.id));
+      cards = cards.filter((c) => isCardReview(c));
     }
 
     // Search query
@@ -255,12 +349,13 @@ export const ClfC02LearningHub: React.FC<ClfC02LearningHubProps> = ({
     return cards;
   }, [
     activeDeck,
+    ALL_400_FLASHCARDS,
     selectedTaskFilter,
     selectedDomainFilter,
     selectedStatusFilter,
     searchQuery,
-    activeMasteredIds,
-    activeReviewIds,
+    isCardMastered,
+    isCardReview,
   ]);
 
   // Reset index when deck or filter changes
@@ -287,54 +382,90 @@ export const ClfC02LearningHub: React.FC<ClfC02LearningHubProps> = ({
   }, [filteredCards.length]);
 
   const toggleMastered = useCallback(
-    (cardId: number) => {
-      if (activeDeck === 'domain1_100') {
-        setMasteredD1CardIds((prev) =>
-          prev.includes(cardId) ? prev.filter((id) => id !== cardId) : [...prev, cardId]
-        );
-        setReviewD1CardIds((prev) => prev.filter((id) => id !== cardId));
-      } else if (activeDeck === 'domain2_100') {
-        setMasteredD2CardIds((prev) =>
-          prev.includes(cardId) ? prev.filter((id) => id !== cardId) : [...prev, cardId]
-        );
-        setReviewD2CardIds((prev) => prev.filter((id) => id !== cardId));
-      } else if (activeDeck === 'domain3_100') {
-        setMasteredD3CardIds((prev) =>
-          prev.includes(cardId) ? prev.filter((id) => id !== cardId) : [...prev, cardId]
-        );
-        setReviewD3CardIds((prev) => prev.filter((id) => id !== cardId));
-      } else {
+    (cardId: number, domainNumber?: number) => {
+      if (activeDeck === 'all_50') {
         setMasteredAllCardIds((prev) =>
           prev.includes(cardId) ? prev.filter((id) => id !== cardId) : [...prev, cardId]
         );
         setReviewAllCardIds((prev) => prev.filter((id) => id !== cardId));
+        return;
+      }
+      const dom =
+        activeDeck === 'domain1_100'
+          ? 1
+          : activeDeck === 'domain2_100'
+          ? 2
+          : activeDeck === 'domain3_100'
+          ? 3
+          : activeDeck === 'domain4_100'
+          ? 4
+          : domainNumber || 1;
+
+      if (dom === 1) {
+        setMasteredD1CardIds((prev) =>
+          prev.includes(cardId) ? prev.filter((id) => id !== cardId) : [...prev, cardId]
+        );
+        setReviewD1CardIds((prev) => prev.filter((id) => id !== cardId));
+      } else if (dom === 2) {
+        setMasteredD2CardIds((prev) =>
+          prev.includes(cardId) ? prev.filter((id) => id !== cardId) : [...prev, cardId]
+        );
+        setReviewD2CardIds((prev) => prev.filter((id) => id !== cardId));
+      } else if (dom === 3) {
+        setMasteredD3CardIds((prev) =>
+          prev.includes(cardId) ? prev.filter((id) => id !== cardId) : [...prev, cardId]
+        );
+        setReviewD3CardIds((prev) => prev.filter((id) => id !== cardId));
+      } else if (dom === 4) {
+        setMasteredD4CardIds((prev) =>
+          prev.includes(cardId) ? prev.filter((id) => id !== cardId) : [...prev, cardId]
+        );
+        setReviewD4CardIds((prev) => prev.filter((id) => id !== cardId));
       }
     },
     [activeDeck]
   );
 
   const toggleReview = useCallback(
-    (cardId: number) => {
-      if (activeDeck === 'domain1_100') {
-        setReviewD1CardIds((prev) =>
-          prev.includes(cardId) ? prev.filter((id) => id !== cardId) : [...prev, cardId]
-        );
-        setMasteredD1CardIds((prev) => prev.filter((id) => id !== cardId));
-      } else if (activeDeck === 'domain2_100') {
-        setReviewD2CardIds((prev) =>
-          prev.includes(cardId) ? prev.filter((id) => id !== cardId) : [...prev, cardId]
-        );
-        setMasteredD2CardIds((prev) => prev.filter((id) => id !== cardId));
-      } else if (activeDeck === 'domain3_100') {
-        setReviewD3CardIds((prev) =>
-          prev.includes(cardId) ? prev.filter((id) => id !== cardId) : [...prev, cardId]
-        );
-        setMasteredD3CardIds((prev) => prev.filter((id) => id !== cardId));
-      } else {
+    (cardId: number, domainNumber?: number) => {
+      if (activeDeck === 'all_50') {
         setReviewAllCardIds((prev) =>
           prev.includes(cardId) ? prev.filter((id) => id !== cardId) : [...prev, cardId]
         );
         setMasteredAllCardIds((prev) => prev.filter((id) => id !== cardId));
+        return;
+      }
+      const dom =
+        activeDeck === 'domain1_100'
+          ? 1
+          : activeDeck === 'domain2_100'
+          ? 2
+          : activeDeck === 'domain3_100'
+          ? 3
+          : activeDeck === 'domain4_100'
+          ? 4
+          : domainNumber || 1;
+
+      if (dom === 1) {
+        setReviewD1CardIds((prev) =>
+          prev.includes(cardId) ? prev.filter((id) => id !== cardId) : [...prev, cardId]
+        );
+        setMasteredD1CardIds((prev) => prev.filter((id) => id !== cardId));
+      } else if (dom === 2) {
+        setReviewD2CardIds((prev) =>
+          prev.includes(cardId) ? prev.filter((id) => id !== cardId) : [...prev, cardId]
+        );
+        setMasteredD2CardIds((prev) => prev.filter((id) => id !== cardId));
+      } else if (dom === 3) {
+        setReviewD3CardIds((prev) =>
+          prev.includes(cardId) ? prev.filter((id) => id !== cardId) : [...prev, cardId]
+        );
+        setMasteredD3CardIds((prev) => prev.filter((id) => id !== cardId));
+      } else if (dom === 4) {
+        setReviewD4CardIds((prev) =>
+          prev.includes(cardId) ? prev.filter((id) => id !== cardId) : [...prev, cardId]
+        );
+        setMasteredD4CardIds((prev) => prev.filter((id) => id !== cardId));
       }
     },
     [activeDeck]
@@ -348,7 +479,16 @@ export const ClfC02LearningHub: React.FC<ClfC02LearningHubProps> = ({
           : 'Reset mastery progress for this flashcard deck?'
       )
     ) {
-      if (activeDeck === 'domain1_100') {
+      if (activeDeck === 'all_400') {
+        setMasteredD1CardIds([]);
+        setReviewD1CardIds([]);
+        setMasteredD2CardIds([]);
+        setReviewD2CardIds([]);
+        setMasteredD3CardIds([]);
+        setReviewD3CardIds([]);
+        setMasteredD4CardIds([]);
+        setReviewD4CardIds([]);
+      } else if (activeDeck === 'domain1_100') {
         setMasteredD1CardIds([]);
         setReviewD1CardIds([]);
       } else if (activeDeck === 'domain2_100') {
@@ -357,6 +497,9 @@ export const ClfC02LearningHub: React.FC<ClfC02LearningHubProps> = ({
       } else if (activeDeck === 'domain3_100') {
         setMasteredD3CardIds([]);
         setReviewD3CardIds([]);
+      } else if (activeDeck === 'domain4_100') {
+        setMasteredD4CardIds([]);
+        setReviewD4CardIds([]);
       } else {
         setMasteredAllCardIds([]);
         setReviewAllCardIds([]);
@@ -383,10 +526,10 @@ export const ClfC02LearningHub: React.FC<ClfC02LearningHubProps> = ({
         handlePrevCard();
       } else if (e.key.toLowerCase() === 'm' && currentCard) {
         e.preventDefault();
-        toggleMastered(currentCard.id);
+        toggleMastered(currentCard.id, currentCard.domainNumber);
       } else if (e.key.toLowerCase() === 'r' && currentCard) {
         e.preventDefault();
-        toggleReview(currentCard.id);
+        toggleReview(currentCard.id, currentCard.domainNumber);
       }
     };
 
@@ -423,8 +566,8 @@ export const ClfC02LearningHub: React.FC<ClfC02LearningHubProps> = ({
 
             <p className="text-sm sm:text-base text-[#c7c4d7] leading-relaxed">
               {language === 'fr'
-                ? "Maîtrisez les Domaines 1, 2 & 3 (Concepts Cloud 24%, Sécurité 30%, et Technologies & Services 34%) avec 300 Flashcards spécialisées (100 D1 + 100 D2 + 100 D3) et le cours officiel interactif."
-                : "Master Domains 1, 2 & 3 (Cloud Concepts 24%, Security 30%, and Technology & Services 34%) with 300 specialized flashcards (100 D1 + 100 D2 + 100 D3) and the official interactive curriculum."}
+                ? "Maîtrisez les 4 Domaines officiels (Concepts Cloud 24%, Sécurité 30%, Technologies & Services 34%, Facturation & Support 12%) avec 450 Flashcards (100 D1 + 100 D2 + 100 D3 + 100 D4 + 50 Examen Blanc) et le cours officiel interactif."
+                : "Master all 4 official Domains (Cloud Concepts 24%, Security 30%, Technology & Services 34%, Billing & Support 12%) with 450 Flashcards (100 D1 + 100 D2 + 100 D3 + 100 D4 + 50 Exam Mock) and the official interactive curriculum."}
             </p>
 
             <div className="pt-1 flex items-center gap-3 flex-wrap">
@@ -461,7 +604,31 @@ export const ClfC02LearningHub: React.FC<ClfC02LearningHubProps> = ({
             <button
               onClick={() => {
                 setActiveView('flashcards');
+                setActiveDeck('all_400');
+                setSelectedDomainFilter('all');
+                setCurrentCardIndex(0);
+                setIsFlipped(false);
+              }}
+              className={`px-3 py-2 rounded-lg text-xs font-mono-code font-bold transition-all flex items-center justify-center gap-1.5 ${
+                activeView === 'flashcards' && activeDeck === 'all_400'
+                  ? 'bg-gradient-to-r from-[#8083ff] to-[#4cd7f6] text-[#0f131d] shadow-md'
+                  : 'text-[#c7c4d7] hover:text-white hover:bg-[#171b26]'
+              }`}
+            >
+              <span className="material-symbols-outlined text-[16px]">all_inclusive</span>
+              <span>{language === 'fr' ? 'Tous (400)' : 'All (400)'}</span>
+              <span className="px-1.5 py-0.5 rounded text-[10px] bg-black/30 text-white font-mono-code font-bold">
+                400
+              </span>
+            </button>
+
+            <button
+              onClick={() => {
+                setActiveView('flashcards');
                 setActiveDeck('domain1_100');
+                setSelectedTaskFilter('all');
+                setCurrentCardIndex(0);
+                setIsFlipped(false);
               }}
               className={`px-3 py-2 rounded-lg text-xs font-mono-code font-bold transition-all flex items-center justify-center gap-1.5 ${
                 activeView === 'flashcards' && activeDeck === 'domain1_100'
@@ -480,6 +647,9 @@ export const ClfC02LearningHub: React.FC<ClfC02LearningHubProps> = ({
               onClick={() => {
                 setActiveView('flashcards');
                 setActiveDeck('domain2_100');
+                setSelectedTaskFilter('all');
+                setCurrentCardIndex(0);
+                setIsFlipped(false);
               }}
               className={`px-3 py-2 rounded-lg text-xs font-mono-code font-bold transition-all flex items-center justify-center gap-1.5 ${
                 activeView === 'flashcards' && activeDeck === 'domain2_100'
@@ -498,6 +668,9 @@ export const ClfC02LearningHub: React.FC<ClfC02LearningHubProps> = ({
               onClick={() => {
                 setActiveView('flashcards');
                 setActiveDeck('domain3_100');
+                setSelectedTaskFilter('all');
+                setCurrentCardIndex(0);
+                setIsFlipped(false);
               }}
               className={`px-3 py-2 rounded-lg text-xs font-mono-code font-bold transition-all flex items-center justify-center gap-1.5 ${
                 activeView === 'flashcards' && activeDeck === 'domain3_100'
@@ -510,6 +683,45 @@ export const ClfC02LearningHub: React.FC<ClfC02LearningHubProps> = ({
               <span className="px-1.5 py-0.5 rounded text-[10px] bg-black/30 text-white font-mono-code font-bold">
                 34%
               </span>
+            </button>
+
+            <button
+              onClick={() => {
+                setActiveView('flashcards');
+                setActiveDeck('domain4_100');
+                setSelectedTaskFilter('all');
+                setCurrentCardIndex(0);
+                setIsFlipped(false);
+              }}
+              className={`px-3 py-2 rounded-lg text-xs font-mono-code font-bold transition-all flex items-center justify-center gap-1.5 ${
+                activeView === 'flashcards' && activeDeck === 'domain4_100'
+                  ? 'bg-gradient-to-r from-[#34d399] to-[#10b981] text-[#0f131d] shadow-md'
+                  : 'text-[#c7c4d7] hover:text-white hover:bg-[#171b26]'
+              }`}
+            >
+              <span className="material-symbols-outlined text-[16px]">payments</span>
+              <span>{language === 'fr' ? '100 D4' : '100 D4'}</span>
+              <span className="px-1.5 py-0.5 rounded text-[10px] bg-black/30 text-[#0f131d] font-mono-code font-bold">
+                12%
+              </span>
+            </button>
+
+            <button
+              onClick={() => {
+                setActiveView('flashcards');
+                setActiveDeck('all_50');
+                setSelectedDomainFilter('all');
+                setCurrentCardIndex(0);
+                setIsFlipped(false);
+              }}
+              className={`px-3 py-2 rounded-lg text-xs font-mono-code font-bold transition-all flex items-center justify-center gap-1.5 ${
+                activeView === 'flashcards' && activeDeck === 'all_50'
+                  ? 'bg-gradient-to-r from-[#f59e0b] to-[#fbbf24] text-[#0f131d] shadow-md'
+                  : 'text-[#c7c4d7] hover:text-white hover:bg-[#171b26]'
+              }`}
+            >
+              <span className="material-symbols-outlined text-[16px]">quiz</span>
+              <span>{language === 'fr' ? 'Examen Blanc (50)' : 'Exam Mock (50)'}</span>
             </button>
           </div>
         </div>
@@ -1018,7 +1230,11 @@ export const ClfC02LearningHub: React.FC<ClfC02LearningHubProps> = ({
                   {language === 'fr' ? 'Sélection du Jeu de Flashcards' : 'Select Flashcard Deck'}
                 </h3>
                 <p className="text-xs text-[#908fa0]">
-                  {activeDeck === 'domain1_100'
+                  {activeDeck === 'all_400'
+                    ? (language === 'fr'
+                        ? 'Suite complète des 400 flashcards officielles couvrant l’intégralité des 4 domaines du blueprint CLF-C02'
+                        : 'Complete suite of 400 official flashcards covering all 4 domains of the CLF-C02 blueprint')
+                    : activeDeck === 'domain1_100'
                     ? (language === 'fr'
                         ? '100 flashcards approfondies dédiées au Domaine 1 (Concepts Cloud - 24%) & aux 4 tâches officielles'
                         : '100 in-depth flashcards focused on Domain 1 (Cloud Concepts - 24%) & all 4 official task statements')
@@ -1030,14 +1246,38 @@ export const ClfC02LearningHub: React.FC<ClfC02LearningHubProps> = ({
                     ? (language === 'fr'
                         ? '100 flashcards approfondies dédiées au Domaine 3 (Technologies & Services Cloud - 34%) & aux 7 tâches officielles'
                         : '100 in-depth flashcards focused on Domain 3 (Cloud Technology & Services - 34%) & all 7 official tasks')
+                    : activeDeck === 'domain4_100'
+                    ? (language === 'fr'
+                        ? '100 flashcards approfondies dédiées au Domaine 4 (Facturation, Tarification & Support - 12%) & aux 3 tâches officielles'
+                        : '100 in-depth flashcards focused on Domain 4 (Billing, Pricing, and Support - 12%) & all 3 official tasks')
                     : (language === 'fr'
-                        ? '50 flashcards couvrant l’ensemble des 4 domaines du blueprint CLF-C02'
-                        : '50 practice flashcards spanning all 4 domains of the CLF-C02 blueprint')}
+                        ? '50 flashcards d’examen blanc réparties selon les proportions officielles du blueprint CLF-C02'
+                        : '50 practice exam mock flashcards distributed according to official CLF-C02 blueprint weightings')}
                 </p>
               </div>
             </div>
 
             <div className="flex items-center gap-2 bg-[#0a0e18] p-1.5 rounded-xl border border-[#262a35] shrink-0 flex-wrap">
+              <button
+                onClick={() => {
+                  setActiveDeck('all_400');
+                  setSelectedDomainFilter('all');
+                  setCurrentCardIndex(0);
+                  setIsFlipped(false);
+                }}
+                className={`px-3 py-2 rounded-lg text-xs font-mono-code font-bold transition-all flex items-center gap-1.5 ${
+                  activeDeck === 'all_400'
+                    ? 'bg-gradient-to-r from-[#8083ff] to-[#4cd7f6] text-[#0f131d] shadow-md'
+                    : 'text-[#c7c4d7] hover:text-white hover:bg-[#171b26]'
+                }`}
+              >
+                <span className="material-symbols-outlined text-[16px]">all_inclusive</span>
+                <span>{language === 'fr' ? 'Tous (400)' : 'All (400)'}</span>
+                <span className="px-1.5 py-0.2 rounded text-[10px] bg-black/20 text-[#0f131d] font-mono-code font-extrabold">
+                  400
+                </span>
+              </button>
+
               <button
                 onClick={() => {
                   setActiveDeck('domain1_100');
@@ -1100,6 +1340,26 @@ export const ClfC02LearningHub: React.FC<ClfC02LearningHubProps> = ({
 
               <button
                 onClick={() => {
+                  setActiveDeck('domain4_100');
+                  setSelectedTaskFilter('all');
+                  setCurrentCardIndex(0);
+                  setIsFlipped(false);
+                }}
+                className={`px-3 py-2 rounded-lg text-xs font-mono-code font-bold transition-all flex items-center gap-1.5 ${
+                  activeDeck === 'domain4_100'
+                    ? 'bg-gradient-to-r from-[#34d399] to-[#10b981] text-[#0f131d] shadow-md'
+                    : 'text-[#c7c4d7] hover:text-white hover:bg-[#171b26]'
+                }`}
+              >
+                <span className="material-symbols-outlined text-[16px]">payments</span>
+                <span>{language === 'fr' ? 'Domaine 4 (100)' : 'Domain 4 (100)'}</span>
+                <span className="px-1.5 py-0.2 rounded text-[10px] bg-black/20 text-[#0f131d] font-mono-code font-extrabold">
+                  12%
+                </span>
+              </button>
+
+              <button
+                onClick={() => {
                   setActiveDeck('all_50');
                   setSelectedDomainFilter('all');
                   setCurrentCardIndex(0);
@@ -1107,12 +1367,12 @@ export const ClfC02LearningHub: React.FC<ClfC02LearningHubProps> = ({
                 }}
                 className={`px-3 py-2 rounded-lg text-xs font-mono-code font-bold transition-all flex items-center gap-1.5 ${
                   activeDeck === 'all_50'
-                    ? 'bg-gradient-to-r from-[#8083ff] to-[#4cd7f6] text-[#0f131d] shadow-md'
+                    ? 'bg-gradient-to-r from-[#f59e0b] to-[#fbbf24] text-[#0f131d] shadow-md'
                     : 'text-[#c7c4d7] hover:text-white hover:bg-[#171b26]'
                 }`}
               >
-                <span className="material-symbols-outlined text-[16px]">all_inclusive</span>
-                <span>{language === 'fr' ? 'Tous (50)' : 'All (50)'}</span>
+                <span className="material-symbols-outlined text-[16px]">quiz</span>
+                <span>{language === 'fr' ? 'Examen Blanc (50)' : 'Exam Mock (50)'}</span>
                 <span className="px-1.5 py-0.2 rounded text-[10px] bg-black/20 text-[#0f131d] font-mono-code font-extrabold">
                   50
                 </span>
@@ -1127,13 +1387,17 @@ export const ClfC02LearningHub: React.FC<ClfC02LearningHubProps> = ({
               <div className="space-y-1">
                 <div className="flex items-center gap-2 flex-wrap">
                   <span className="font-display font-bold text-lg sm:text-xl text-white">
-                    {activeDeck === 'domain1_100'
+                    {activeDeck === 'all_400'
+                      ? (language === 'fr' ? 'Suite Complète : 400 Flashcards CLF-C02 (Domaines 1 à 4)' : 'Complete Suite: 400 CLF-C02 Flashcards (Domains 1 to 4)')
+                      : activeDeck === 'domain1_100'
                       ? (language === 'fr' ? 'Jeu des 100 Flashcards : Domaine 1 (Concepts Cloud - 24%)' : '100 Flashcards Deck: Domain 1 (Cloud Concepts - 24%)')
                       : activeDeck === 'domain2_100'
                       ? (language === 'fr' ? 'Jeu des 100 Flashcards : Domaine 2 (Sécurité & Conformité - 30%)' : '100 Flashcards Deck: Domain 2 (Security & Compliance - 30%)')
                       : activeDeck === 'domain3_100'
                       ? (language === 'fr' ? 'Jeu des 100 Flashcards : Domaine 3 (Technologies & Services - 34%)' : '100 Flashcards Deck: Domain 3 (Cloud Technology & Services - 34%)')
-                      : (language === 'fr' ? 'Jeu des 50 Flashcards CLF-C02 (Examen Global)' : '50 CLF-C02 Flashcards Deck (Comprehensive Exam)')}
+                      : activeDeck === 'domain4_100'
+                      ? (language === 'fr' ? 'Jeu des 100 Flashcards : Domaine 4 (Facturation, Tarification & Support - 12%)' : '100 Flashcards Deck: Domain 4 (Billing, Pricing, and Support - 12%)')
+                      : (language === 'fr' ? 'Examen Blanc : Jeu des 50 Flashcards Globales' : 'Exam Simulation: 50 Comprehensive Flashcards Deck')}
                   </span>
                   <span className="px-2 py-0.5 rounded text-[11px] font-mono-code bg-[#0a0e18] border border-[#262a35] text-[#4cd7f6] font-bold">
                     {filteredCards.length} {language === 'fr' ? 'cartes affichées' : 'cards filtered'}
@@ -1152,10 +1416,10 @@ export const ClfC02LearningHub: React.FC<ClfC02LearningHubProps> = ({
                   <span className="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
                   <span className="text-[#908fa0]">{language === 'fr' ? 'Maîtrisées :' : 'Mastered:'}</span>
                   <span className="font-bold text-white">
-                    {activeMasteredIds.length} / {activeDeckTotal}
+                    {activeMasteredCount} / {activeDeckTotal}
                   </span>
                   <span className="text-emerald-400 font-bold">
-                    ({Math.round((activeMasteredIds.length / activeDeckTotal) * 100)}%)
+                    ({Math.round((activeMasteredCount / activeDeckTotal) * 100)}%)
                   </span>
                 </div>
 
@@ -1163,7 +1427,7 @@ export const ClfC02LearningHub: React.FC<ClfC02LearningHubProps> = ({
                   <span className="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
                   <span className="text-[#908fa0]">{language === 'fr' ? 'À Réviser :' : 'Review:'}</span>
                   <span className="font-bold text-amber-400">
-                    {activeReviewIds.length}
+                    {activeReviewCount}
                   </span>
                 </div>
 
@@ -1180,7 +1444,64 @@ export const ClfC02LearningHub: React.FC<ClfC02LearningHubProps> = ({
             <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
               {/* Category Filter Pills */}
               <div className="flex items-center gap-1.5 overflow-x-auto pb-1 text-xs font-mono-code">
-                {activeDeck === 'domain1_100' ? (
+                {activeDeck === 'all_400' ? (
+                  <>
+                    <button
+                      onClick={() => setSelectedDomainFilter('all')}
+                      className={`px-3 py-1.5 rounded-lg whitespace-nowrap transition-colors ${
+                        selectedDomainFilter === 'all'
+                          ? 'bg-[#8083ff] text-white font-bold shadow'
+                          : 'bg-[#0a0e18] text-[#c7c4d7] hover:bg-[#262a35]'
+                      }`}
+                    >
+                      {language === 'fr' ? 'Tous les 4 Domaines (400)' : 'All 4 Domains (400)'}
+                    </button>
+
+                    <button
+                      onClick={() => setSelectedDomainFilter(1)}
+                      className={`px-3 py-1.5 rounded-lg whitespace-nowrap transition-colors ${
+                        selectedDomainFilter === 1
+                          ? 'bg-[#ff9900] text-[#0f131d] font-bold shadow'
+                          : 'bg-[#0a0e18] text-[#c7c4d7] hover:bg-[#262a35]'
+                      }`}
+                    >
+                      D1: Concepts (100)
+                    </button>
+
+                    <button
+                      onClick={() => setSelectedDomainFilter(2)}
+                      className={`px-3 py-1.5 rounded-lg whitespace-nowrap transition-colors ${
+                        selectedDomainFilter === 2
+                          ? 'bg-[#4cd7f6] text-[#0f131d] font-bold shadow'
+                          : 'bg-[#0a0e18] text-[#c7c4d7] hover:bg-[#262a35]'
+                      }`}
+                    >
+                      D2: Sécurité (100)
+                    </button>
+
+                    <button
+                      onClick={() => setSelectedDomainFilter(3)}
+                      className={`px-3 py-1.5 rounded-lg whitespace-nowrap transition-colors ${
+                        selectedDomainFilter === 3
+                          ? 'bg-[#a78bfa] text-white font-bold shadow'
+                          : 'bg-[#0a0e18] text-[#c7c4d7] hover:bg-[#262a35]'
+                      }`}
+                    >
+                      D3: Technologies (100)
+                    </button>
+
+                    <button
+                      onClick={() => setSelectedDomainFilter(4)}
+                      className={`px-3 py-1.5 rounded-lg whitespace-nowrap transition-colors ${
+                        selectedDomainFilter === 4
+                          ? 'bg-[#34d399] text-[#0f131d] font-bold shadow'
+                          : 'bg-[#0a0e18] text-[#c7c4d7] hover:bg-[#262a35]'
+                      }`}
+                    >
+                      D4: Facturation (100)
+                    </button>
+                  </>
+                ) : activeDeck === 'domain1_100' ? (
                   <>
                     <button
                       onClick={() => setSelectedTaskFilter('all')}
@@ -1399,6 +1720,55 @@ export const ClfC02LearningHub: React.FC<ClfC02LearningHubProps> = ({
                       {language === 'fr' ? 'Tâche 3.7 : AI/ML & Analytics (13)' : 'Task 3.7: AI/ML & Analytics (13)'}
                     </button>
                   </>
+                ) : activeDeck === 'domain4_100' ? (
+                  <>
+                    <button
+                      onClick={() => setSelectedTaskFilter('all')}
+                      className={`px-3 py-1.5 rounded-lg whitespace-nowrap transition-colors ${
+                        selectedTaskFilter === 'all'
+                          ? 'bg-[#34d399] text-[#0f131d] font-bold shadow'
+                          : 'bg-[#0a0e18] text-[#c7c4d7] hover:bg-[#262a35]'
+                      }`}
+                    >
+                      {language === 'fr' ? 'Toutes les Tâches (100)' : 'All Tasks (100)'}
+                    </button>
+
+                    <button
+                      onClick={() => setSelectedTaskFilter('4.1')}
+                      className={`px-3 py-1.5 rounded-lg whitespace-nowrap transition-colors ${
+                        selectedTaskFilter === '4.1'
+                          ? 'bg-[#34d399] text-[#0f131d] font-bold shadow'
+                          : 'bg-[#0a0e18] text-[#c7c4d7] hover:bg-[#262a35]'
+                      }`}
+                      title="Task 4.1: Compare AWS pricing models"
+                    >
+                      {language === 'fr' ? 'Tâche 4.1 : Modèles de Prix (33)' : 'Task 4.1: Pricing Models (33)'}
+                    </button>
+
+                    <button
+                      onClick={() => setSelectedTaskFilter('4.2')}
+                      className={`px-3 py-1.5 rounded-lg whitespace-nowrap transition-colors ${
+                        selectedTaskFilter === '4.2'
+                          ? 'bg-[#10b981] text-[#0f131d] font-bold shadow'
+                          : 'bg-[#0a0e18] text-[#c7c4d7] hover:bg-[#262a35]'
+                      }`}
+                      title="Task 4.2: Understand billing, budget, and cost management"
+                    >
+                      {language === 'fr' ? 'Tâche 4.2 : Facturation & Budgets (33)' : 'Task 4.2: Billing & Budgets (33)'}
+                    </button>
+
+                    <button
+                      onClick={() => setSelectedTaskFilter('4.3')}
+                      className={`px-3 py-1.5 rounded-lg whitespace-nowrap transition-colors ${
+                        selectedTaskFilter === '4.3'
+                          ? 'bg-[#059669] text-white font-bold shadow'
+                          : 'bg-[#0a0e18] text-[#c7c4d7] hover:bg-[#262a35]'
+                      }`}
+                      title="Task 4.3: Identify AWS technical resources and AWS Support options"
+                    >
+                      {language === 'fr' ? 'Tâche 4.3 : Support & Ressources (34)' : 'Task 4.3: Support & Resources (34)'}
+                    </button>
+                  </>
                 ) : (
                   <>
                     <button
@@ -1502,7 +1872,9 @@ export const ClfC02LearningHub: React.FC<ClfC02LearningHubProps> = ({
               <div className="flex items-center justify-between text-xs font-mono-code">
                 <div className="flex items-center gap-2">
                   <span className="px-2.5 py-1 rounded-md bg-[#171b26] border border-[#262a35] text-[#ffb95f] font-bold">
-                    Card #{currentCard.id} of {activeDeckTotal}
+                    {activeDeck === 'all_400'
+                      ? `Card #${currentCardIndex + 1} of 400 (D${currentCard.domainNumber} #${currentCard.id})`
+                      : `Card #${currentCard.id} of ${activeDeckTotal}`}
                   </span>
                   <span className="text-[#908fa0] hidden sm:inline truncate max-w-[420px]">
                     {currentCard.taskStatement}
@@ -1511,29 +1883,29 @@ export const ClfC02LearningHub: React.FC<ClfC02LearningHubProps> = ({
 
                 <div className="flex items-center gap-2">
                   <button
-                    onClick={() => toggleReview(currentCard.id)}
+                    onClick={() => toggleReview(currentCard.id, currentCard.domainNumber)}
                     className={`px-3 py-1 rounded-lg border text-xs font-bold transition-all flex items-center gap-1 ${
-                      activeReviewIds.includes(currentCard.id)
+                      isCardReview(currentCard)
                         ? 'bg-amber-500/20 border-amber-500 text-amber-300'
                         : 'bg-[#171b26] border-[#262a35] text-[#908fa0] hover:text-white'
                     }`}
                   >
                     <span className="material-symbols-outlined text-[14px]">
-                      {activeReviewIds.includes(currentCard.id) ? 'bookmark_added' : 'bookmark_border'}
+                      {isCardReview(currentCard) ? 'bookmark_added' : 'bookmark_border'}
                     </span>
                     <span>{language === 'fr' ? 'À réviser' : 'Review'}</span>
                   </button>
 
                   <button
-                    onClick={() => toggleMastered(currentCard.id)}
+                    onClick={() => toggleMastered(currentCard.id, currentCard.domainNumber)}
                     className={`px-3 py-1 rounded-lg border text-xs font-bold transition-all flex items-center gap-1 ${
-                      activeMasteredIds.includes(currentCard.id)
+                      isCardMastered(currentCard)
                         ? 'bg-emerald-500/20 border-emerald-500 text-emerald-300'
                         : 'bg-[#171b26] border-[#262a35] text-[#908fa0] hover:text-white'
                     }`}
                   >
                     <span className="material-symbols-outlined text-[14px]">
-                      {activeMasteredIds.includes(currentCard.id) ? 'check_circle' : 'radio_button_unchecked'}
+                      {isCardMastered(currentCard) ? 'check_circle' : 'radio_button_unchecked'}
                     </span>
                     <span>{language === 'fr' ? 'Maîtrisé' : 'Mastered'}</span>
                   </button>
@@ -1671,13 +2043,17 @@ export const ClfC02LearningHub: React.FC<ClfC02LearningHubProps> = ({
                   <div className="flex items-center gap-2">
                     <span className="material-symbols-outlined text-[16px] text-[#4cd7f6]">grid_view</span>
                     <span className="text-xs font-mono-code font-bold text-white uppercase tracking-wider">
-                      {activeDeck === 'domain1_100'
+                      {activeDeck === 'all_400'
+                        ? (language === 'fr' ? 'Sélecteur Rapide : Suite Complète (400 Cartes)' : 'Quick Jump Grid: Full Suite (400 Cards)')
+                        : activeDeck === 'domain1_100'
                         ? (language === 'fr' ? 'Sélecteur Rapide : Domaine 1 (100 Cartes)' : 'Quick Jump Grid: Domain 1 (100 Cards)')
                         : activeDeck === 'domain2_100'
                         ? (language === 'fr' ? 'Sélecteur Rapide : Domaine 2 (100 Cartes)' : 'Quick Jump Grid: Domain 2 (100 Cards)')
                         : activeDeck === 'domain3_100'
                         ? (language === 'fr' ? 'Sélecteur Rapide : Domaine 3 (100 Cartes)' : 'Quick Jump Grid: Domain 3 (100 Cards)')
-                        : (language === 'fr' ? 'Sélecteur Rapide : Examen Global (50 Cartes)' : 'Quick Jump Grid: Full Exam (50 Cards)')}
+                        : activeDeck === 'domain4_100'
+                        ? (language === 'fr' ? 'Sélecteur Rapide : Domaine 4 (100 Cartes)' : 'Quick Jump Grid: Domain 4 (100 Cards)')
+                        : (language === 'fr' ? 'Sélecteur Rapide : Examen Blanc (50 Cartes)' : 'Quick Jump Grid: Exam Mock (50 Cards)')}
                     </span>
                   </div>
                   <div className="flex items-center gap-3 text-[11px] font-mono-code">
@@ -1701,12 +2077,12 @@ export const ClfC02LearningHub: React.FC<ClfC02LearningHubProps> = ({
                 >
                   {filteredCards.map((card, idx) => {
                     const isCurrent = idx === currentCardIndex;
-                    const isMastered = activeMasteredIds.includes(card.id);
-                    const isReview = activeReviewIds.includes(card.id);
+                    const isMastered = isCardMastered(card);
+                    const isReview = isCardReview(card);
 
                     return (
                       <button
-                        key={card.id}
+                        key={`${card.domainNumber}-${card.id}`}
                         onClick={() => {
                           setCurrentCardIndex(idx);
                           setIsFlipped(false);
@@ -1722,9 +2098,9 @@ export const ClfC02LearningHub: React.FC<ClfC02LearningHubProps> = ({
                             ? 'bg-amber-500/30 text-amber-300 border border-amber-500/50'
                             : 'bg-[#0a0e18] text-[#908fa0] hover:text-white border border-[#262a35] hover:border-[#464554]'
                         }`}
-                        title={`Card #${card.id}: ${card.topic}`}
+                        title={`Domain ${card.domainNumber} - Card #${card.id}: ${card.topic}`}
                       >
-                        {card.id}
+                        {activeDeck === 'all_400' ? idx + 1 : card.id}
                       </button>
                     );
                   })}
