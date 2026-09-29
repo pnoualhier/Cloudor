@@ -88,10 +88,99 @@ export const QuickSearchModal: React.FC<QuickSearchModalProps> = ({ isOpen, onCl
       badgeColor: 'text-red-400 bg-red-500/10',
     },
     {
+      title: language === 'fr'
+        ? 'AWS Solutions Architect – Associate (SAA-C03) : 400 Flashcards & Blueprint des 4 Domaines'
+        : 'AWS Solutions Architect – Associate (SAA-C03): 400 Flashcards & 4-Domain Blueprint',
+      category: language === 'fr' ? 'Cartes Mémos AWS' : 'AWS Flashcards',
+      tab: 'saa-c03-hub' as ActiveTab,
+      badge: '400 Cards (D1-D4)',
+      badgeColor: 'text-[#ffb95f] bg-[#ff9900]/20 border border-[#ff9900]/30',
+    },
+    {
+      title: language === 'fr'
+        ? 'AWS Solutions Architect – Professional (SAP-C02) : 400 Flashcards & Blueprint des 4 Domaines'
+        : 'AWS Solutions Architect – Professional (SAP-C02): 400 Flashcards & 4-Domain Blueprint',
+      category: language === 'fr' ? 'Cartes Mémos AWS Pro' : 'AWS Pro Flashcards',
+      tab: 'sap-c02-hub' as ActiveTab,
+      badge: '400 Pro Cards (D1-D4)',
+      badgeColor: 'text-amber-300 bg-amber-500/20 border border-amber-500/30',
+    },
+    {
+      title: language === 'fr'
+        ? 'AWS Certified Developer – Associate (DVA-C02) : 400 Flashcards & Blueprint des 4 Domaines'
+        : 'AWS Certified Developer – Associate (DVA-C02): 400 Flashcards & 4-Domain Blueprint',
+      category: language === 'fr' ? 'Cartes Mémos AWS Dev' : 'AWS Dev Flashcards',
+      tab: 'dva-c02-hub' as ActiveTab,
+      badge: '400 Dev Cards (D1-D4)',
+      badgeColor: 'text-amber-300 bg-amber-600/20 border border-amber-600/30',
+    },
+    {
+      title: 'AWS Certified Developer – Associate (DVA-C02)',
+      category: language === 'fr' ? 'Objectif d’Examen Dev' : 'Dev Exam Target',
+      tab: 'dva-c02-hub' as ActiveTab,
+      badge: language === 'fr' ? 'Hub Dédié (400 Cards)' : 'Dedicated Hub (400 Cards)',
+      badgeColor: 'text-amber-400 bg-amber-500/10',
+    },
+    {
+      title: language === 'fr'
+        ? 'Microsoft Azure Developer Associate (AZ-204) : 500 Flashcards & Blueprint des 5 Domaines'
+        : 'Microsoft Azure Developer Associate (AZ-204): 500 Flashcards & 5-Domain Blueprint',
+      category: language === 'fr' ? 'Cartes Mémos Azure Dev' : 'Azure Dev Flashcards',
+      tab: 'az-204-hub' as ActiveTab,
+      badge: '500 Dev Cards (D1-D5)',
+      badgeColor: 'text-[#70baff] bg-[#0078d4]/20 border border-[#0078d4]/30',
+    },
+    {
+      title: 'Microsoft Certified: Azure Developer Associate (AZ-204)',
+      category: language === 'fr' ? 'Objectif d’Examen Dev' : 'Dev Exam Target',
+      tab: 'az-204-hub' as ActiveTab,
+      badge: language === 'fr' ? 'Hub Dédié (500 Cards)' : 'Dedicated Hub (500 Cards)',
+      badgeColor: 'text-[#70baff] bg-[#0078d4]/10',
+    },
+    {
+      title: language === 'fr'
+        ? 'Google Cloud Professional Cloud Architect (PCA-2025) : 600 Flashcards & Blueprint des 6 Domaines'
+        : 'Google Cloud Professional Cloud Architect (PCA-2025): 600 Flashcards & 6-Domain Blueprint',
+      category: language === 'fr' ? 'Cartes Mémos GCP Architect' : 'GCP Architect Flashcards',
+      tab: 'pca-2025-hub' as ActiveTab,
+      badge: '600 PCA Cards (D1-D6)',
+      badgeColor: 'text-emerald-300 bg-emerald-500/20 border border-emerald-500/30',
+    },
+    {
+      title: 'Google Cloud Certified Professional Cloud Architect (PCA-2025)',
+      category: language === 'fr' ? 'Objectif d’Examen Pro' : 'Pro Exam Target',
+      tab: 'pca-2025-hub' as ActiveTab,
+      badge: language === 'fr' ? 'Hub Dédié (600 Cards)' : 'Dedicated Hub (600 Cards)',
+      badgeColor: 'text-emerald-400 bg-emerald-500/10',
+    },
+    {
+      title: language === 'fr'
+        ? 'Microsoft Azure Solutions Architect Expert (AZ-305) : 400 Flashcards & Blueprint des 4 Domaines'
+        : 'Microsoft Azure Solutions Architect Expert (AZ-305): 400 Flashcards & 4-Domain Blueprint',
+      category: language === 'fr' ? 'Cartes Mémos Azure Expert' : 'Azure Expert Flashcards',
+      tab: 'az-305-hub' as ActiveTab,
+      badge: '400 Expert Cards (D1-D4)',
+      badgeColor: 'text-sky-300 bg-sky-500/20 border border-sky-500/30',
+    },
+    {
+      title: 'Microsoft Certified: Azure Solutions Architect Expert (AZ-305)',
+      category: language === 'fr' ? 'Objectif d’Examen Expert' : 'Expert Exam Target',
+      tab: 'az-305-hub' as ActiveTab,
+      badge: language === 'fr' ? 'Hub Dédié (400 Cards)' : 'Dedicated Hub (400 Cards)',
+      badgeColor: 'text-sky-400 bg-sky-500/10',
+    },
+    {
+      title: 'AWS Certified Solutions Architect – Professional (SAP-C02)',
+      category: language === 'fr' ? 'Objectif d’Examen Pro' : 'Pro Exam Target',
+      tab: 'sap-c02-hub' as ActiveTab,
+      badge: language === 'fr' ? 'Hub Dédié (400 Cards)' : 'Dedicated Hub (400 Cards)',
+      badgeColor: 'text-amber-400 bg-amber-500/10',
+    },
+    {
       title: 'AWS Certified Solutions Architect – Associate (SAA-C03)',
       category: language === 'fr' ? 'Objectif d’Examen' : 'Exam Target',
-      tab: 'my-study-dashboard' as ActiveTab,
-      badge: language === 'fr' ? 'Objectif Actif' : 'Active Goal',
+      tab: 'saa-c03-hub' as ActiveTab,
+      badge: language === 'fr' ? 'Hub Dédié (400 Cards)' : 'Dedicated Hub (400 Cards)',
       badgeColor: 'text-[#ffb95f] bg-[#ffb95f]/10',
     },
     {

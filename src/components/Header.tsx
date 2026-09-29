@@ -30,8 +30,14 @@ export const Header: React.FC<HeaderProps> = ({
     { id: 'practice-exam-lab', label: t.practiceExamLab },
     { id: 'cheatsheets-and-playground', label: t.cheatsheetsPlayground },
     { id: 'clf-c02-hub', label: t.clfHub, badge: '450 Cards' },
+    { id: 'saa-c03-hub', label: t.saaHub, badge: '400 Cards', badgeColor: 'bg-[#ff9900]/20 text-[#ffb95f] border-[#ff9900]/40' },
+    { id: 'sap-c02-hub', label: t.sapHub, badge: '400 Cards', badgeColor: 'bg-amber-500/20 text-amber-300 border-amber-500/40' },
+    { id: 'dva-c02-hub', label: t.dvaC02Hub, badge: '400 Cards', badgeColor: 'bg-amber-600/20 text-amber-300 border-amber-600/40' },
     { id: 'az-900-hub', label: t.azHub, badge: '300 Cards', badgeColor: 'bg-[#0078d4]/20 text-[#70baff] border-[#0078d4]/40' },
-    { id: 'cv0-004-hub', label: t.cv0Hub, badge: '200 Cards', badgeColor: 'bg-red-600/20 text-red-400 border-red-500/40' },
+    { id: 'az-204-hub', label: t.az204Hub, badge: '500 Cards', badgeColor: 'bg-[#0078d4]/20 text-[#70baff] border-[#0078d4]/40' },
+    { id: 'az-305-hub', label: t.az305Hub, badge: '400 Cards', badgeColor: 'bg-sky-500/20 text-sky-400 border-sky-500/40' },
+    { id: 'pca-2025-hub', label: t.pca2025Hub, badge: '600 Cards', badgeColor: 'bg-emerald-500/20 text-emerald-400 border-emerald-500/40' },
+    { id: 'cv0-004-hub', label: t.cv0Hub, badge: '300 Cards', badgeColor: 'bg-red-600/20 text-red-400 border-red-500/40' },
   ];
 
   return (

@@ -5,7 +5,13 @@ export type ActiveTab =
   | 'cheatsheets-and-playground'
   | 'clf-c02-hub'
   | 'az-900-hub'
-  | 'cv0-004-hub';
+  | 'cv0-004-hub'
+  | 'saa-c03-hub'
+  | 'sap-c02-hub'
+  | 'az-305-hub'
+  | 'pca-2025-hub'
+  | 'dva-c02-hub'
+  | 'az-204-hub';
 
 export type Provider = 'all' | 'aws' | 'azure' | 'gcp' | 'k8s' | 'comptia';
 

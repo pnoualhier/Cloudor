@@ -147,11 +147,12 @@ export const PATHWAY_CARDS: CertificationPathway[] = [
         examDuration: '120 Minutes',
         questionsCount: '50–60 Questions (Includes 2 case studies: EHR Healthcare, TerramEarth)',
         domains: [
-          { name: 'Designing and planning a cloud solution architecture', weight: '24%' },
-          { name: 'Managing and provisioning a solution infrastructure', weight: '22%' },
-          { name: 'Designing for security and compliance', weight: '18%' },
-          { name: 'Analyzing and optimizing technical and business processes', weight: '18%' },
-          { name: 'Ensuring solution and operations reliability', weight: '18%' }
+          { name: '1. Designing and planning a cloud solution architecture (100 Cards)', weight: '24%' },
+          { name: '2. Managing and provisioning a solution infrastructure (100 Cards)', weight: '18%' },
+          { name: '3. Designing for security and compliance (100 Cards)', weight: '18%' },
+          { name: '4. Analyzing and optimizing technical and business processes (100 Cards)', weight: '15%' },
+          { name: '5. Managing implementation of Google Cloud (100 Cards)', weight: '12%' },
+          { name: '6. Ensuring solution and operations reliability (100 Cards)', weight: '13%' }
         ]
       }
     ],
@@ -182,10 +183,10 @@ export const PATHWAY_CARDS: CertificationPathway[] = [
         examDuration: '130 Minutes',
         questionsCount: '65 Questions',
         domains: [
-          { name: 'Development with AWS Services', weight: '32%' },
-          { name: 'Security', weight: '26%' },
-          { name: 'Deployment', weight: '24%' },
-          { name: 'Troubleshooting and Optimization', weight: '18%' }
+          { name: '1. Development with AWS Services (100 Cards)', weight: '32%' },
+          { name: '2. Security (100 Cards)', weight: '26%' },
+          { name: '3. Deployment (100 Cards)', weight: '24%' },
+          { name: '4. Troubleshooting and Optimization (100 Cards)', weight: '18%' }
         ]
       },
       {
@@ -196,14 +197,14 @@ export const PATHWAY_CARDS: CertificationPathway[] = [
         programUrl: 'https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/az-204',
         description: 'Participate in all phases of cloud development from requirements definition to testing, deployment, and maintenance.',
         passingScore: '700 / 1000',
-        examDuration: '100 Minutes',
+        examDuration: '120 Minutes',
         questionsCount: '40–60 Questions',
         domains: [
-          { name: 'Develop Azure compute solutions (App Service, Functions)', weight: '25–30%' },
-          { name: 'Develop for Azure storage (Cosmos DB, Blob)', weight: '15–20%' },
-          { name: 'Implement Azure security (Key Vault, Managed ID)', weight: '20–25%' },
-          { name: 'Monitor, troubleshoot, and optimize solutions', weight: '15–20%' },
-          { name: 'Connect to and consume Azure and third-party services', weight: '15–20%' }
+          { name: '1. Develop Azure compute solutions (100 Cards)', weight: '25–30%' },
+          { name: '2. Develop for Azure storage (100 Cards)', weight: '15–20%' },
+          { name: '3. Implement Azure security (100 Cards)', weight: '20–25%' },
+          { name: '4. Monitor, troubleshoot, and optimize solutions (100 Cards)', weight: '15–20%' },
+          { name: '5. Connect to and consume Azure and third-party services (100 Cards)', weight: '15–20%' }
         ]
       }
     ],

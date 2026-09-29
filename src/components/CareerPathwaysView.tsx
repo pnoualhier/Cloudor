@@ -266,6 +266,118 @@ export const CareerPathwaysView: React.FC<CareerPathwaysViewProps> = ({
                             </button>
                           )}
 
+                          {/* Dedicated CV0-004 Deck shortcut */}
+                          {cert.code === 'CV0-004' && (
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                onNavigate('cv0-004-hub');
+                              }}
+                              title={language === 'fr' ? 'Ouvrir la suite complète des 300 Flashcards CV0-004' : 'Open Full 300 Flashcards CV0-004 Suite'}
+                              className="px-2 py-1 rounded-lg bg-red-600/20 hover:bg-red-600 text-red-400 hover:text-white text-[11px] font-mono-code font-bold flex items-center gap-1 border border-red-500/40 transition-all shadow-sm"
+                            >
+                              <span className="material-symbols-outlined text-[13px]">style</span>
+                              <span>{language === 'fr' ? '300 Cartes' : '300 Cards'}</span>
+                            </button>
+                          )}
+
+                          {/* Dedicated SAA-C03 Deck shortcut */}
+                          {cert.code === 'SAA-C03' && (
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                onNavigate('saa-c03-hub');
+                              }}
+                              title={language === 'fr' ? 'Ouvrir la suite complète des 400 Flashcards SAA-C03 (Domaines 1, 2, 3 & 4)' : 'Open Full 400 Flashcards SAA-C03 Suite (Domains 1, 2, 3 & 4)'}
+                              className="px-2 py-1 rounded-lg bg-[#ff9900]/20 hover:bg-[#ff9900] text-[#ffb95f] hover:text-[#0f131d] text-[11px] font-mono-code font-bold flex items-center gap-1 border border-[#ff9900]/40 transition-all shadow-sm"
+                            >
+                              <span className="material-symbols-outlined text-[13px]">style</span>
+                              <span>{language === 'fr' ? '400 Cartes' : '400 Cards'}</span>
+                            </button>
+                          )}
+
+                          {/* Dedicated SAP-C02 Deck shortcut */}
+                          {cert.code === 'SAP-C02' && (
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                onNavigate('sap-c02-hub');
+                              }}
+                              title={language === 'fr' ? 'Ouvrir la suite complète des 400 Flashcards SAP-C02 Pro (Domaines 1, 2, 3 & 4)' : 'Open Full 400 Flashcards SAP-C02 Suite (Domains 1, 2, 3 & 4)'}
+                              className="px-2 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500 text-amber-300 hover:text-[#0f131d] text-[11px] font-mono-code font-bold flex items-center gap-1 border border-amber-500/40 transition-all shadow-sm"
+                            >
+                              <span className="material-symbols-outlined text-[13px]">style</span>
+                              <span>{language === 'fr' ? '400 Cartes Pro' : '400 Pro Cards'}</span>
+                            </button>
+                          )}
+
+                          {/* Dedicated AZ-305 Deck shortcut */}
+                          {cert.code === 'AZ-305' && (
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                onNavigate('az-305-hub');
+                              }}
+                              title={language === 'fr' ? 'Ouvrir la suite complète des 400 Flashcards AZ-305 Expert (Domaines 1, 2, 3 & 4)' : 'Open Full 400 Flashcards AZ-305 Expert Suite (Domains 1, 2, 3 & 4)'}
+                              className="px-2 py-1 rounded-lg bg-sky-500/20 hover:bg-sky-500 text-sky-300 hover:text-[#0f131d] text-[11px] font-mono-code font-bold flex items-center gap-1 border border-sky-500/40 transition-all shadow-sm"
+                            >
+                              <span className="material-symbols-outlined text-[13px]">style</span>
+                              <span>{language === 'fr' ? '400 Cartes Expert' : '400 Expert Cards'}</span>
+                            </button>
+                          )}
+
+                          {/* Dedicated PCA-2025 Deck shortcut */}
+                          {(cert.code === 'PCA-2025' || cert.code === 'PCA') && (
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                onNavigate('pca-2025-hub');
+                              }}
+                              title={language === 'fr' ? 'Ouvrir la suite complète des 600 Flashcards GCP PCA-2025 (Domaines 1 à 6)' : 'Open Full 600 Flashcards GCP PCA-2025 Suite (Domains 1 to 6)'}
+                              className="px-2 py-1 rounded-lg bg-emerald-500/20 hover:bg-emerald-500 text-emerald-300 hover:text-[#0f131d] text-[11px] font-mono-code font-bold flex items-center gap-1 border border-emerald-500/40 transition-all shadow-sm"
+                            >
+                              <span className="material-symbols-outlined text-[13px]">style</span>
+                              <span>{language === 'fr' ? '600 Cartes PCA' : '600 PCA Cards'}</span>
+                            </button>
+                          )}
+
+                          {/* Dedicated DVA-C02 Deck shortcut */}
+                          {(cert.code === 'DVA-C02' || cert.code === 'DVA') && (
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                onNavigate('dva-c02-hub');
+                              }}
+                              title={language === 'fr' ? 'Ouvrir la suite complète des 400 Flashcards AWS DVA-C02 (Domaines 1, 2, 3 & 4)' : 'Open Full 400 Flashcards AWS DVA-C02 Suite (Domains 1, 2, 3 & 4)'}
+                              className="px-2 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500 text-amber-300 hover:text-[#0f131d] text-[11px] font-mono-code font-bold flex items-center gap-1 border border-amber-500/40 transition-all shadow-sm"
+                            >
+                              <span className="material-symbols-outlined text-[13px]">style</span>
+                              <span>{language === 'fr' ? '400 Cartes Dev' : '400 Dev Cards'}</span>
+                            </button>
+                          )}
+
+                          {/* Dedicated AZ-204 Deck shortcut */}
+                          {(cert.code === 'AZ-204' || cert.code === 'AZ204') && (
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                onNavigate('az-204-hub');
+                              }}
+                              title={language === 'fr' ? 'Ouvrir la suite complète des 500 Flashcards Azure AZ-204 (Domaines 1 à 5)' : 'Open Full 500 Flashcards Azure AZ-204 Suite (Domains 1 to 5)'}
+                              className="px-2 py-1 rounded-lg bg-[#0078d4]/20 hover:bg-[#0078d4] text-[#70baff] hover:text-white text-[11px] font-mono-code font-bold flex items-center gap-1 border border-[#0078d4]/40 transition-all shadow-sm"
+                            >
+                              <span className="material-symbols-outlined text-[13px]">style</span>
+                              <span>{language === 'fr' ? '500 Cartes AZ-204' : '500 AZ-204 Cards'}</span>
+                            </button>
+                          )}
+
                           {/* Direct URL Access to Official Vendor Program */}
                           <a
                             href={cert.url}

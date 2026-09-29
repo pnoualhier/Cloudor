@@ -12,6 +12,12 @@ import { CheatsheetsPlaygroundView } from './components/CheatsheetsPlaygroundVie
 import { ClfC02LearningHub } from './components/ClfC02LearningHub';
 import { Az900LearningHub } from './components/Az900LearningHub';
 import { Cv0004LearningHub } from './components/Cv0004LearningHub';
+import { SaaC03LearningHub } from './components/SaaC03LearningHub';
+import { SapC02LearningHub } from './components/SapC02LearningHub';
+import { Az305LearningHub } from './components/Az305LearningHub';
+import { Pca2025LearningHub } from './components/Pca2025LearningHub';
+import { DvaC02LearningHub } from './components/DvaC02LearningHub';
+import { Az204LearningHub } from './components/Az204LearningHub';
 import { QuickSearchModal } from './components/QuickSearchModal';
 import { SkillAssessmentModal } from './components/SkillAssessmentModal';
 import { SystemSettingsModal } from './components/SystemSettingsModal';
@@ -133,6 +139,78 @@ function AppContent() {
               transition={{ duration: 0.2 }}
             >
               <Cv0004LearningHub onNavigate={setActiveTab} />
+            </motion.div>
+          )}
+
+          {activeTab === 'saa-c03-hub' && (
+            <motion.div
+              key="saa-c03-hub"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.2 }}
+            >
+              <SaaC03LearningHub onNavigate={setActiveTab} />
+            </motion.div>
+          )}
+
+          {activeTab === 'sap-c02-hub' && (
+            <motion.div
+              key="sap-c02-hub"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.2 }}
+            >
+              <SapC02LearningHub onNavigate={setActiveTab} />
+            </motion.div>
+          )}
+
+          {activeTab === 'az-305-hub' && (
+            <motion.div
+              key="az-305-hub"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.2 }}
+            >
+              <Az305LearningHub onNavigate={setActiveTab} />
+            </motion.div>
+          )}
+
+          {activeTab === 'pca-2025-hub' && (
+            <motion.div
+              key="pca-2025-hub"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.2 }}
+            >
+              <Pca2025LearningHub onNavigate={setActiveTab} />
+            </motion.div>
+          )}
+
+          {activeTab === 'dva-c02-hub' && (
+            <motion.div
+              key="dva-c02-hub"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.2 }}
+            >
+              <DvaC02LearningHub onNavigate={setActiveTab} />
+            </motion.div>
+          )}
+
+          {activeTab === 'az-204-hub' && (
+            <motion.div
+              key="az-204-hub"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.2 }}
+            >
+              <Az204LearningHub onNavigate={setActiveTab} />
             </motion.div>
           )}
         </AnimatePresence>

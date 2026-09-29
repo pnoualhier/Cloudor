@@ -1,6 +1,6 @@
 {
   "name": "Cloudor",
-  "description": "Multi-cloud architecture cheatsheets, 100-flashcard drills for CompTIA Cloud+ CV0-004 and Azure/AWS hubs, practice exam simulation lab, and certification career pathways.",
+  "description": "Multi-cloud architecture cheatsheets, 400-flashcard suites for Azure AZ-305 Expert, AWS SAA-C03 & SAP-C02, CompTIA CV0-004, Azure AZ-900, AWS CLF-C02, practice exam simulation lab, and career pathways.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
