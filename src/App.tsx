@@ -18,6 +18,8 @@ import { Az305LearningHub } from './components/Az305LearningHub';
 import { Pca2025LearningHub } from './components/Pca2025LearningHub';
 import { DvaC02LearningHub } from './components/DvaC02LearningHub';
 import { Az204LearningHub } from './components/Az204LearningHub';
+import { PdeGcpLearningHub } from './components/PdeGcpLearningHub';
+import { MlsC01LearningHub } from './components/MlsC01LearningHub';
 import { QuickSearchModal } from './components/QuickSearchModal';
 import { SkillAssessmentModal } from './components/SkillAssessmentModal';
 import { SystemSettingsModal } from './components/SystemSettingsModal';
@@ -211,6 +213,30 @@ function AppContent() {
               transition={{ duration: 0.2 }}
             >
               <Az204LearningHub onNavigate={setActiveTab} />
+            </motion.div>
+          )}
+
+          {activeTab === 'pde-gcp-hub' && (
+            <motion.div
+              key="pde-gcp-hub"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.2 }}
+            >
+              <PdeGcpLearningHub onNavigate={setActiveTab} />
+            </motion.div>
+          )}
+
+          {activeTab === 'mls-c01-hub' && (
+            <motion.div
+              key="mls-c01-hub"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.2 }}
+            >
+              <MlsC01LearningHub onNavigate={setActiveTab} />
             </motion.div>
           )}
         </AnimatePresence>

@@ -37,6 +37,8 @@ export const Header: React.FC<HeaderProps> = ({
     { id: 'az-204-hub', label: t.az204Hub, badge: '500 Cards', badgeColor: 'bg-[#0078d4]/20 text-[#70baff] border-[#0078d4]/40' },
     { id: 'az-305-hub', label: t.az305Hub, badge: '400 Cards', badgeColor: 'bg-sky-500/20 text-sky-400 border-sky-500/40' },
     { id: 'pca-2025-hub', label: t.pca2025Hub, badge: '600 Cards', badgeColor: 'bg-emerald-500/20 text-emerald-400 border-emerald-500/40' },
+    { id: 'pde-gcp-hub', label: t.pdeGcpHub, badge: '500 Cards', badgeColor: 'bg-blue-500/20 text-blue-300 border-blue-500/40' },
+    { id: 'mls-c01-hub', label: t.mlsC01Hub, badge: '400 Cards', badgeColor: 'bg-purple-500/20 text-purple-300 border-purple-500/40' },
     { id: 'cv0-004-hub', label: t.cv0Hub, badge: '300 Cards', badgeColor: 'bg-red-600/20 text-red-400 border-red-500/40' },
   ];
 

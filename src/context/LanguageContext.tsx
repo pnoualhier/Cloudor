@@ -18,6 +18,8 @@ export interface Translations {
   pca2025Hub: string;
   dvaC02Hub: string;
   az204Hub: string;
+  pdeGcpHub: string;
+  mlsC01Hub: string;
   searchPlaceholder: string;
   streakText: string;
   notificationsTitle: string;
@@ -113,6 +115,8 @@ const translations: Record<Language, Translations> = {
     pca2025Hub: 'GCP PCA-2025 (600 Cards)',
     dvaC02Hub: 'AWS DVA-C02 (400 Cards)',
     az204Hub: 'Azure AZ-204 (500 Cards)',
+    pdeGcpHub: 'GCP PDE (500 Cards)',
+    mlsC01Hub: 'AWS MLS-C01 (400 Cards)',
     searchPlaceholder: 'Search specs, exams, labs...',
     streakText: '14d streak',
     notificationsTitle: 'Activity Radar',
@@ -201,6 +205,8 @@ const translations: Record<Language, Translations> = {
     pca2025Hub: 'GCP PCA-2025 (600 Cartes)',
     dvaC02Hub: 'AWS DVA-C02 (400 Cartes)',
     az204Hub: 'Azure AZ-204 (500 Cartes)',
+    pdeGcpHub: 'GCP PDE (500 Cartes)',
+    mlsC01Hub: 'AWS MLS-C01 (400 Cartes)',
     searchPlaceholder: 'Rechercher specs, examens, labs...',
     streakText: '14j consécutifs',
     notificationsTitle: "Radar d'Activité",

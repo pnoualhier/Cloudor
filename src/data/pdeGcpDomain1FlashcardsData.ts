@@ -1,0 +1,8 @@
+import { PdeGcpFlashcard } from './pdeGcpTypes';
+import { PDE_GCP_DOMAIN_1_PART_1 } from './pdeGcpDomain1Part1';
+import { PDE_GCP_DOMAIN_1_PART_2 } from './pdeGcpDomain1Part2';
+
+export const PDE_GCP_DOMAIN_1_100_FLASHCARDS: PdeGcpFlashcard[] = [
+  ...PDE_GCP_DOMAIN_1_PART_1,
+  ...PDE_GCP_DOMAIN_1_PART_2,
+];

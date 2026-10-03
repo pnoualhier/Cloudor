@@ -11,7 +11,9 @@ export type ActiveTab =
   | 'az-305-hub'
   | 'pca-2025-hub'
   | 'dva-c02-hub'
-  | 'az-204-hub';
+  | 'az-204-hub'
+  | 'pde-gcp-hub'
+  | 'mls-c01-hub';
 
 export type Provider = 'all' | 'aws' | 'azure' | 'gcp' | 'k8s' | 'comptia';
 

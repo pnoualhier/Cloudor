@@ -155,6 +155,38 @@ export const QuickSearchModal: React.FC<QuickSearchModalProps> = ({ isOpen, onCl
     },
     {
       title: language === 'fr'
+        ? 'Google Cloud Professional Data Engineer (PDE-GCP) : 500 Flashcards & Blueprint des 5 Domaines'
+        : 'Google Cloud Professional Data Engineer (PDE-GCP): 500 Flashcards & 5-Domain Blueprint',
+      category: language === 'fr' ? 'Cartes Mémos GCP Data' : 'GCP Data Flashcards',
+      tab: 'pde-gcp-hub' as ActiveTab,
+      badge: '500 Data Cards (D1-D5)',
+      badgeColor: 'text-blue-300 bg-blue-500/20 border border-blue-500/30',
+    },
+    {
+      title: 'Google Cloud Certified Professional Data Engineer (PDE-GCP)',
+      category: language === 'fr' ? 'Objectif d’Examen Data' : 'Data Exam Target',
+      tab: 'pde-gcp-hub' as ActiveTab,
+      badge: language === 'fr' ? 'Hub Dédié (500 Cards)' : 'Dedicated Hub (500 Cards)',
+      badgeColor: 'text-blue-400 bg-blue-500/10',
+    },
+    {
+      title: language === 'fr'
+        ? 'AWS Certified Machine Learning – Specialty (MLS-C01) : 400 Flashcards & Blueprint des 4 Domaines'
+        : 'AWS Certified Machine Learning – Specialty (MLS-C01): 400 Flashcards & 4-Domain Blueprint',
+      category: language === 'fr' ? 'Cartes Mémos AWS Machine Learning' : 'AWS ML Specialty Flashcards',
+      tab: 'mls-c01-hub' as ActiveTab,
+      badge: '400 ML Cards (D1-D4)',
+      badgeColor: 'text-purple-300 bg-purple-500/20 border border-purple-500/30',
+    },
+    {
+      title: 'AWS Certified Machine Learning – Specialty (MLS-C01)',
+      category: language === 'fr' ? 'Objectif d’Examen ML' : 'ML Exam Target',
+      tab: 'mls-c01-hub' as ActiveTab,
+      badge: language === 'fr' ? 'Hub Dédié (400 Cards)' : 'Dedicated Hub (400 Cards)',
+      badgeColor: 'text-purple-400 bg-purple-500/10',
+    },
+    {
+      title: language === 'fr'
         ? 'Microsoft Azure Solutions Architect Expert (AZ-305) : 400 Flashcards & Blueprint des 4 Domaines'
         : 'Microsoft Azure Solutions Architect Expert (AZ-305): 400 Flashcards & 4-Domain Blueprint',
       category: language === 'fr' ? 'Cartes Mémos Azure Expert' : 'Azure Expert Flashcards',

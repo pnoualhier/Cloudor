@@ -242,11 +242,11 @@ export const PATHWAY_CARDS: CertificationPathway[] = [
         examDuration: '120 Minutes',
         questionsCount: '50–60 Questions',
         domains: [
-          { name: 'Designing data processing systems', weight: '22%' },
-          { name: 'Ingesting and processing data', weight: '25%' },
-          { name: 'Storing the data and managing databases', weight: '20%' },
-          { name: 'Preparing and using data for analysis', weight: '15%' },
-          { name: 'Maintaining and automating data workloads', weight: '18%' }
+          { name: '1. Designing data processing systems (100 Cards)', weight: '22%' },
+          { name: '2. Ingesting and processing data (100 Cards)', weight: '25%' },
+          { name: '3. Storing the data and managing databases (100 Cards)', weight: '20%' },
+          { name: '4. Preparing and using data for analysis (100 Cards)', weight: '15%' },
+          { name: '5. Maintaining and automating data workloads (100 Cards)', weight: '18%' }
         ]
       },
       {
@@ -260,10 +260,10 @@ export const PATHWAY_CARDS: CertificationPathway[] = [
         examDuration: '180 Minutes',
         questionsCount: '65 Questions',
         domains: [
-          { name: 'Data Engineering', weight: '20%' },
-          { name: 'Exploratory Data Analysis', weight: '24%' },
-          { name: 'Modeling', weight: '36%' },
-          { name: 'Machine Learning Implementation and Operations', weight: '20%' }
+          { name: '1. Data Engineering (100 Cards)', weight: '20%' },
+          { name: '2. Exploratory Data Analysis (100 Cards)', weight: '24%' },
+          { name: '3. Modeling (100 Cards)', weight: '36%' },
+          { name: '4. Machine Learning Implementation and Operations (100 Cards)', weight: '20%' }
         ]
       },
       {

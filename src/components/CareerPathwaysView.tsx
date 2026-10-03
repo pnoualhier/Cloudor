@@ -378,6 +378,38 @@ export const CareerPathwaysView: React.FC<CareerPathwaysViewProps> = ({
                             </button>
                           )}
 
+                          {/* Dedicated PDE-GCP Deck shortcut */}
+                          {(cert.code === 'PDE-GCP' || cert.code === 'PDE') && (
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                onNavigate('pde-gcp-hub');
+                              }}
+                              title={language === 'fr' ? 'Ouvrir la suite complète des 500 Flashcards GCP PDE (Domaines 1 à 5)' : 'Open Full 500 Flashcards GCP PDE Suite (Domains 1 to 5)'}
+                              className="px-2 py-1 rounded-lg bg-blue-500/20 hover:bg-blue-500 text-blue-300 hover:text-white text-[11px] font-mono-code font-bold flex items-center gap-1 border border-blue-500/40 transition-all shadow-sm"
+                            >
+                              <span className="material-symbols-outlined text-[13px]">style</span>
+                              <span>{language === 'fr' ? '500 Cartes PDE' : '500 PDE Cards'}</span>
+                            </button>
+                          )}
+
+                          {/* Dedicated MLS-C01 Deck shortcut */}
+                          {(cert.code === 'MLS-C01' || cert.code === 'MLS') && (
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                onNavigate('mls-c01-hub');
+                              }}
+                              title={language === 'fr' ? 'Ouvrir la suite complète des 400 Flashcards AWS MLS-C01 (Domaines 1 à 4)' : 'Open Full 400 Flashcards AWS MLS-C01 Suite (Domains 1 to 4)'}
+                              className="px-2 py-1 rounded-lg bg-purple-500/20 hover:bg-purple-500 text-purple-300 hover:text-white text-[11px] font-mono-code font-bold flex items-center gap-1 border border-purple-500/40 transition-all shadow-sm"
+                            >
+                              <span className="material-symbols-outlined text-[13px]">style</span>
+                              <span>{language === 'fr' ? '400 Cartes MLS' : '400 MLS Cards'}</span>
+                            </button>
+                          )}
+
                           {/* Direct URL Access to Official Vendor Program */}
                           <a
                             href={cert.url}
